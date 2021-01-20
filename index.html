@@ -9,93 +9,10 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	<meta charset="utf-8" />
 	<title>Dreamrunner</title>
-	<script type="text/javascript" src="./dreamrunner_combat.js">
+	<script type="text/javascript" src="./dreamrunner.js">
 
 	</script>
-	<style>
-		body {
-			background-color: #270c47;
-		}
-		
-		.nav-tabs .nav-link:focus, .nav-tabs .nav-link.active {
-			background-color: #270c47;
-			border-color: #D4AF37;
-			border-bottom: 0px solid;
-			color: #D4AF37;
-		}
-		
-		.nav-tabs .nav-link {
-			background-color: #270c47;
-			border-color: #D4AF37;
-			border-bottom: 0px solid;
-			color: #cccccc;
-		}
-		
-		.container-gold {
-			background-color: #270c47;
-			border-color: #D4AF37;
-			color: #D4AF37;
-		}
-		
-		.icon {
-			width: 32px;
-			height: 32px;
-		}
-		
-		.equipped_item_icon {
-			width: 24px;
-			height: 24px;
-		}
-		
-		.equipment_slot_icon {
-			border: 1px solid;
-			border-color: #ffffff;
-			width: 24px;
-			height: 24px;
-		}
-		
-		.btn-width-100 {
-			width: 100px;
-		}
-		
-		.btn {
-			cursor: pointer;
-		}
-		
-		.bg-white {
-			background-color: #ffffff;
-		}
-		
-		.add_divider {
-			border-bottom: 1px solid;
-		}
-		
-		.icon-button:before {
-			content: "";
-			width: 16px;
-			height: 16px;
-			display: inline-block;
-			margin-right: 10px;
-			vertical-align: text-top;
-			background-color: transparent;
-			background-position : center center;
-			background-repeat:no-repeat;
-		}
-
-		.idIcon:before{
-			 background-image : url(img/icons/id.png);
-			 width: 16px;
-			 height: 16px;
-		}
-		
-		.sEgoIcon:before{
-			 background-image : url(img/icons/superego.png);
-			 width: 16px;
-			 height: 16px;
-		}
-
-		
-	</style>
+	<link rel="stylesheet" href="./dreamrunner.css">
 </head>
 <body>
 		<div class="container">
@@ -106,35 +23,35 @@
 						<div class="col"><h3>Character Name</h3></div>
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/lethargy.png" class="icon" alt="Lethargy">
+						<img src="img/icons/lethargy.png" class="icon" alt="Lethargy" data-toggle="tooltip" data-placement="bottom" title="LETHARGY: Dreamers can only stay in the Dream Realm while they are lethargic. Once your Lethargy is gone, you awaken, refreshed and ready to start the day. You can't return to the dream world until the next day.">
 						100
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/lucidity.png" class="icon" alt="Lucidity">
+						<img src="img/icons/lucidity.png" class="icon" alt="Lucidity" data-toggle="tooltip" data-placement="bottom" title="LUCIDITY: Lucid dreaming takes its toll. Changing the dream realm around you requires effort, and once you run out of Lucidity, you will need to recover before you can continue to make alterations or use many of your abilities.">
 						100
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/confidence.png" class="icon" alt="Confidence">
+						<img src="img/icons/confidence.png" class="icon" alt="Confidence" data-toggle="tooltip" data-placement="bottom" title="CONFIDENCE: Dreamrunners must have confidence to face the dream realm. If your Confidence is lost, you retreat to your fortress to recover.">
 						100
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/ephemera.png" class="icon" alt="Ephemera">
+						<img src="img/icons/ephemera.png" class="icon" alt="Ephemera" data-toggle="tooltip" data-placement="bottom" title="EPHEMERA: Ephemera are bits of dream substance, and can be used as currency, among other things.">
 						100
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/ego.png" class="icon" alt="Ego">
+						<img src="img/icons/ego.png" class="icon" alt="Ego" data-toggle="tooltip" data-placement="bottom" title="EGO: Your Ego is your sense of self. As it increases, your abilities will grow.">
 						100
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/id.png" class="icon" alt="Id">
+						<img src="img/icons/id.png" class="icon" alt="Id" data-toggle="tooltip" data-placement="bottom" title="ID: The Id is the primitive and instinctual part of the mind that contains sexual and aggressive drives. If your Id becomes dominant, your reactions will be limited to those that the Id finds acceptable.">
 						100
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/superego.png" class="icon" alt="SuperEgo">
+						<img src="img/icons/superEgo.png" class="icon" alt="Superego" data-toggle="tooltip" data-placement="bottom" title="SUPEREGO: The Superego operates as a moral conscience. If your Superego becomes dominant, your reactions will be limited to those that the Superego finds acceptable.">
 						100
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/experiences.png" class="icon" alt="Experiences">
+						<img src="img/icons/experiences.png" class="icon" alt="Experiences" data-toggle="tooltip" data-placement="bottom" title="EXPERIENCES: Experiences gained while exploring the dream realm can be spent to increase your Ego, and are also required to gain access to new skills and abilities.">
 						100
 					</div>
 				</div>

@@ -1,0 +1,81 @@
+
+body {
+	background-color: #270c47;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link.active {
+	background-color: #270c47;
+	border-color: #D4AF37;
+	border-bottom: 0px solid;
+	color: #D4AF37;
+}
+
+.nav-tabs .nav-link {
+	background-color: #270c47;
+	border-color: #D4AF37;
+	border-bottom: 0px solid;
+	color: #cccccc;
+}
+
+.container-gold {
+	background-color: #270c47;
+	border-color: #D4AF37;
+	color: #D4AF37;
+}
+
+.icon {
+	width: 32px;
+	height: 32px;
+}
+
+.equipped_item_icon {
+	width: 24px;
+	height: 24px;
+}
+
+.equipment_slot_icon {
+	border: 1px solid;
+	border-color: #ffffff;
+	width: 24px;
+	height: 24px;
+}
+
+.btn-width-100 {
+	width: 100px;
+}
+
+.btn {
+	cursor: pointer;
+}
+
+.bg-white {
+	background-color: #ffffff;
+}
+
+.add_divider {
+	border-bottom: 1px solid;
+}
+
+.icon-button:before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	margin-right: 10px;
+	vertical-align: text-top;
+	background-color: transparent;
+	background-position : center center;
+	background-repeat:no-repeat;
+}
+
+.idIcon:before{
+	 background-image : url(img/icons/id.png);
+	 width: 16px;
+	 height: 16px;
+}
+
+.sEgoIcon:before{
+	 background-image : url(img/icons/superego.png);
+	 width: 16px;
+	 height: 16px;
+}
