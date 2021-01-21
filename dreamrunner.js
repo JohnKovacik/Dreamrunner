@@ -6,14 +6,22 @@ $(function () {
 	// Make sure combat panels are hidden;
 	$('#combatPanel').hide();
 	$('#combatButtons').hide();
+	$('.combatCustomPanel').hide();
 	
 	$('[data-toggle="tooltip"]').tooltip();
 	
 	$('.btn').click(function(){ handleClick(this.id) });
 	
+
+	
+	
 	$('#radioExecutePracticed').click( function(){ radioExecutePracticedClick() });
 	$('#radioExecuteSpontaneous').click( function(){ radioExecuteSpontaneousClick() });
+	$('#ddlSpontaneousType').change( function() { ddlSpontaneousTypeChange(this) });
 	
+	$('input[name="radioExecute"]').prop('checked', false);
+	$('#ddlSpontaneousType').attr('disabled', true);
+	$('#ddlPracticed').attr('disabled', true);
 	
 	setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
 	"You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them. It's up to you, really.", '', '', '', '');
@@ -95,6 +103,12 @@ function setResponseButton(id, code) {
 
 function handleClick(id) {
 	switch(id) {
+		case 'btnSpontaneousTypeHelp':
+			
+			break;
+		case 'btnPracticedHelp':
+			
+			break;
 		case 'converse':
 			setEncounter('converse', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
 				'The wizard leader says stuff. How do you react?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
@@ -131,18 +145,63 @@ function handleClick(id) {
 	}
 }
 
+function btnSpontaneousTypeHelpClick() {
+	var alertText = '';
+	var selectedVal = $('#ddlSpontaneousType').find(':selected').val();
+	
+	
+}
+
+function btnPracticedHelpClick() {
+	var alertText = '';
+	var selectedVal = $('#ddlPracticed').find(':selected').val();
+}
+
 function radioExecutePracticedClick() {
 	// Enable Practiced Select control, Disable Custom & hide custom panels;
-	$('#selPracticed').removeAttr('disabled');
-	$('#selSpontaneousType').attr('disabled', true);
+	$('#ddlPracticed').removeAttr('disabled');
+	$("#ddlSpontaneousType option:selected").prop("selected", false);
+	$('#ddlSpontaneousType').attr('disabled', true);
 	$('.combatCustomPanel').hide();
-	
 	
 }
 
 function radioExecuteSpontaneousClick() {
 	// Enable Practiced Select control, Disable Custom & hide custom panels;
-	$('#selSpontaneousType').removeAttr('disabled');
-	$('#selPracticed').attr('disabled', true);
+	$('#ddlSpontaneousType').removeAttr('disabled');
+	$("#ddlPracticed option:selected").prop("selected", false);
+	$('#ddlPracticed').attr('disabled', true);
 	
+}
+
+function ddlSpontaneousTypeChange(ctrl) {
+
+	var selectedVal = $(ctrl).find(':selected').val();
+	var selectedText = $(ctrl).find(':selected').text();
+
+	// Hide all combat panels.
+	$('.combatCustomPanel').hide();
+
+	switch(selectedVal) {
+		case 'restore':
+			$('#combatRestoreConfidencePanel').show();
+			break;
+		case 'attack':
+			$('#combatUnleashAttackPanel').show();
+			break;
+		case 'shield':
+			$('#combatCreateSheildPanel').show();
+			break;
+		case 'relax':
+			$('#combatCalmDownPanel').show();
+			break;
+		case 'rage':
+			$('#combatGetEmotionalPanel').show();
+			break;
+		case 'wish':
+			$('#combatAlterRealityPanel').show();
+			break;
+		default:
+			break;
+	}
 }
