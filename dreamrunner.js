@@ -1,6 +1,7 @@
 
 var encounterState = '';
 
+// Page initialization
 $(function () {
 	// Make sure combat panels are hidden;
 	$('#combatPanel').hide();
@@ -9,6 +10,10 @@ $(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 	
 	$('.btn').click(function(){ handleClick(this.id) });
+	
+	$('#radioExecutePracticed').click( function(){ radioExecutePracticedClick() });
+	$('#radioExecuteSpontaneous').click( function(){ radioExecuteSpontaneousClick() });
+	
 	
 	setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
 	'You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them.', '', '', '', '');
@@ -85,13 +90,13 @@ function setResponseButton(id, code) {
 
 	var v = code.split(':');
 	$(id).html(v[1]);
-	$(id).removeClass('btn-default btn-primary btn-info btn-success btn-warning btn-danger').addClass(v[0]);
+	$(id).removeClass('btn-light btn-dark btn-primary btn-info btn-success btn-warning btn-danger').addClass(v[0]);
 }
 
 function handleClick(id) {
 	switch(id) {
 		case 'converse':
-			setEncounter('start', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
+			setEncounter('converse', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
 				'The wizard leader says stuff. How do you react?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
 			break;
 		case 'response1': // happy
@@ -106,11 +111,11 @@ function handleClick(id) {
 			}
 			break;
 		case 'response2': // Sad
-			setEncounter('start', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
+			setEncounter('converse', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
 				'The wizard seems sad as well. How do you react to his reaction?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
 			break;
 		case 'response3': // Angry
-			setEncounter('start', 'Dream of Freedom City', 'Outside the Sanctum', 'Encounter_Hedonists.png', 
+			setEncounter('converse', 'Dream of Freedom City', 'Outside the Sanctum', 'Encounter_Hedonists.png', 
 				'The wizard beats you up. You find yourself outside on the sidewalk, being approached by some crazy-looking partiers.', '', '', '', '');
 			break;
 		case 'response4':
@@ -124,4 +129,20 @@ function handleClick(id) {
 				'You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them. Seriously. Click the "Converse" button, just below this text.', '', '', '', '');
 		break;
 	}
-}	
+}
+
+function radioExecutePracticedClick() {
+	// Enable Practiced Select control, Disable Custom & hide custom panels;
+	$('#selPracticed').removeAttr('disabled');
+	$('#selSpontaneousType').attr('disabled', true);
+	$('.combatCustomPanel').hide();
+	
+	
+}
+
+function radioExecuteSpontaneousClick() {
+	// Enable Practiced Select control, Disable Custom & hide custom panels;
+	$('#selSpontaneousType').removeAttr('disabled');
+	$('#selPracticed').attr('disabled', true);
+	
+}

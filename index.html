@@ -2,11 +2,13 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
 	<meta charset="utf-8" />
 	<title>Dreamrunner</title>
 	<script type="text/javascript" src="./dreamrunner.js">
@@ -47,7 +49,7 @@
 						100
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/superEgo.png" class="icon" alt="Superego" data-toggle="tooltip" data-placement="bottom" title="SUPEREGO: The Superego operates as a moral conscience. If your Superego becomes dominant, your reactions will be limited to those that the Superego finds acceptable.">
+						<img src="img/icons/superego.png" class="icon" alt="Superego" data-toggle="tooltip" data-placement="bottom" title="SUPEREGO: The Superego operates as a moral conscience. If your Superego becomes dominant, your reactions will be limited to those that the Superego finds acceptable.">
 						100
 					</div>
 					<div class="col-md-1">
@@ -104,10 +106,65 @@
 							<div class="col-md-8" id="combatText">
 								<div class="container">
 									<div class="row">
-										<p>Combat options</p>
+										<p>Select Maneuver</p>
 									</div>
 									<div class="row">
-										
+										<div class="col-md-2">
+											<div class="form-check">
+												<input class="form-check-input" type="radio" name="radioExecute" id="radioExecutePracticed">
+												<label class="form-check-label" for="radioExecute">Practiced</label>
+											</div>
+										</div>
+										<div class="col-md-10 mb-3">
+											<select id="selPracticed" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+												<option selected>Select practiced maneuver</option>
+												<option value="1">Fire Bolt</option>
+												<option value="2">Cold Ray</option>
+												<option value="3">Spear of Rage</option>
+												<option value="4">Shield of Conviction</option>
+												<option value="5">Invisibility</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-2">
+											<div class="form-check">
+												<input class="form-check-input" type="radio" name="radioExecute" id="radioExecuteSpontaneous">
+												<label class="form-check-label" for="radioExecute">Spontaneous</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<span class="float-end">Type
+										</div>
+										<div class="col-md-8">
+											<select id="selSpontaneousType" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+												<option selected>Select maneuver type</option>
+												<option value="1">Restore Confidence</option>
+												<option value="2">Unleash Attack</option>
+												<option value="3">Create Sheild</option>
+												<option value="4">Calm Down</option>
+												<option value="5">Get Emotional</option>
+												<option value="6">Alter "Reality"</option>
+											</select>
+										</div>
+									</div>
+									<div class="row combatCustomPanel" id="combatRestoreConfidencePanel">
+									
+									</div>
+									<div class="row combatCustomPanel" id="combatUnleashAttackPanel">
+									
+									</div>
+									<div class="row combatCustomPanel" id="combatCreateSheildPanel">
+									
+									</div>
+									<div class="row combatCustomPanel" id="combatCalmDownPanel">
+									
+									</div>
+									<div class="row combatCustomPanel" id="combatGetEmotionalPanel">
+									
+									</div>
+									<div class="row combatCustomPanel" id="combatAlterRealityPanel">
+									
 									</div>
 								</div>
 							</div>
@@ -118,20 +175,20 @@
 								<h5>Reaction:</h5>
 							</div>
 							<div class="col-md-11">
-								<button type="button" id="leave" class="btn btn-action btn-sm btn-width-100 btn-default float-right ml-2">Leave Realm</button>
-								<button type="button" id="ignore" class="btn btn-action btn-sm btn-width-100 btn-primary float-right ml-2">Ignore</button>
-								<button type="button" id="converse" class="btn btn-action btn-sm btn-width-100 btn-info float-right ml-2">Converse</button>
-								<button type="button" id="ensnare" class="btn btn-action btn-sm btn-width-100 btn-success float-right ml-2">Ensnare</button>
-								<button type="button" id="befriend" class="btn btn-action btn-sm btn-width-100 btn-success float-right ml-2">Befriend</button>
-								<button type="button" id="uplift" class="btn btn-action btn-sm btn-width-100 btn-warning float-right ml-2">Uplift</button>
-								<button type="button" id="neutralize" class="btn btn-action btn-sm btn-width-100 btn-warning float-right ml-2">Neutralize</button>
-								<button type="button" id="attack" class="btn btn-action btn-sm btn-width-100 btn-danger float-right ml-2">Attack</button>
-								<button type="button" id="devour" class="btn btn-action btn-sm btn-width-100 btn-danger float-right ml-2">Devour</button>
+								<button type="button" id="leave" class="btn btn-action btn-sm btn-width-100 btn-light float-end ms-2">Leave Realm</button>
+								<button type="button" id="ignore" class="btn btn-action btn-sm btn-width-100 btn-primary float-end ms-2">Ignore</button>
+								<button type="button" id="converse" class="btn btn-action btn-sm btn-width-100 btn-info float-end ms-2">Converse</button>
+								<button type="button" id="ensnare" class="btn btn-action btn-sm btn-width-100 btn-success float-end ms-2">Ensnare</button>
+								<button type="button" id="befriend" class="btn btn-action btn-sm btn-width-100 btn-success float-end ms-2">Befriend</button>
+								<button type="button" id="uplift" class="btn btn-action btn-sm btn-width-100 btn-warning float-end ms-2">Uplift</button>
+								<button type="button" id="neutralize" class="btn btn-action btn-sm btn-width-100 btn-warning float-end ms-2">Neutralize</button>
+								<button type="button" id="attack" class="btn btn-action btn-sm btn-width-100 btn-danger float-end ms-2">Attack</button>
+								<button type="button" id="devour" class="btn btn-action btn-sm btn-width-100 btn-danger float-end ms-2">Devour</button>
 								
-								<button type="button" id="response1" class="btn btn-response btn-sm btn-width-100 btn-default float-right ml-2">(blank)</button>
-								<button type="button" id="response2" class="btn btn-response btn-sm btn-width-100 btn-default float-right ml-2">(blank)</button>
-								<button type="button" id="response3" class="btn btn-response btn-sm btn-width-100 btn-default float-right ml-2">(blank)</button>
-								<button type="button" id="response4" class="btn btn-response btn-sm btn-width-100 btn-default float-right ml-2">(blank)</button>
+								<button type="button" id="response1" class="btn btn-response btn-sm btn-width-100 btn-light float-end ms-2">(blank)</button>
+								<button type="button" id="response2" class="btn btn-response btn-sm btn-width-100 btn-light float-end ms-2">(blank)</button>
+								<button type="button" id="response3" class="btn btn-response btn-sm btn-width-100 btn-light float-end ms-2">(blank)</button>
+								<button type="button" id="response4" class="btn btn-response btn-sm btn-width-100 btn-light float-end ms-2">(blank)</button>
 							</div>
 						</div>
 
@@ -140,10 +197,10 @@
 								<h5>Action:</h5>
 							</div>
 							<div class="col-md-11">
-								<button type="button" id="flee" class="btn btn-combat btn-sm btn-width-100 btn-default float-right ml-2">Flee</button>
-								<button type="button" id="wait" class="btn btn-combat btn-sm btn-width-100 btn-warning float-right ml-2">Wait</button>
-								<button type="button" id="examine" class="btn btn-combat btn-sm btn-width-100 btn-info float-right ml-2">Examine</button>
-								<button type="button" id="execute" class="btn btn-combat btn-sm btn-width-100 btn-primary float-right ml-2">Execute</button>
+								<button type="button" id="flee" class="btn btn-combat btn-sm btn-width-100 btn-light float-end ms-2">Flee</button>
+								<button type="button" id="wait" class="btn btn-combat btn-sm btn-width-100 btn-warning float-end ms-2">Wait</button>
+								<button type="button" id="examine" class="btn btn-combat btn-sm btn-width-100 btn-info float-end ms-2">Examine</button>
+								<button type="button" id="execute" class="btn btn-combat btn-sm btn-width-100 btn-primary float-end ms-2">Execute</button>
 							</div>
 						</div>
 						
@@ -184,7 +241,7 @@
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-warning float-right ml-2">></button>
+										<button type="button" class="btn btn-sm btn-warning float-end ms-2">></button>
 									</div>
 								</div>
 
@@ -204,7 +261,7 @@
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-warning float-right ml-2">></button>
+										<button type="button" class="btn btn-sm btn-warning float-end ms-2">></button>
 									</div>
 								</div>
 
@@ -224,7 +281,7 @@
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-warning float-right ml-2">></button>
+										<button type="button" class="btn btn-sm btn-warning float-end ms-2">></button>
 									</div>
 								</div>
 
@@ -244,7 +301,7 @@
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-warning float-right ml-2">></button>
+										<button type="button" class="btn btn-sm btn-warning float-end ms-2">></button>
 									</div>
 								</div>
 
@@ -264,7 +321,7 @@
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-warning float-right ml-2">></button>
+										<button type="button" class="btn btn-sm btn-warning float-end ms-2">></button>
 									</div>
 								</div>
 
@@ -284,7 +341,7 @@
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-warning float-right ml-2">></button>
+										<button type="button" class="btn btn-sm btn-warning float-end ms-2">></button>
 									</div>
 								</div>
 
@@ -304,7 +361,7 @@
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-warning float-right ml-2">></button>
+										<button type="button" class="btn btn-sm btn-warning float-end ms-2">></button>
 									</div>
 								</div>
 
@@ -324,11 +381,11 @@
 									</div>
 									<!-- Info Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-info float-right ml-2">?</button>
+										<button type="button" class="btn btn-sm btn-info float-end ms-2">?</button>
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-warning float-right ml-2">></button>
+										<button type="button" class="btn btn-sm btn-warning float-end ms-2">></button>
 									</div>
 								</div>
 
@@ -350,15 +407,15 @@
 									</div>
 									<!-- Info Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-info float-right ml-2">?</button>
+										<button type="button" class="btn btn-sm btn-info float-end ms-2">?</button>
 									</div>
 									<!-- Equip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-success float-right ml-2"><</button>
+										<button type="button" class="btn btn-sm btn-success float-end ms-2"><</button>
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-danger float-right ml-2">X</button>
+										<button type="button" class="btn btn-sm btn-danger float-end ms-2">X</button>
 									</div>
 								</div>
 								<div class="row mb-2">
@@ -376,19 +433,20 @@
 									</div>
 									<!-- Info Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-info float-right ml-2">?</button>
+										<button type="button" class="btn btn-sm btn-info float-end ms-2">?</button>
 									</div>
 									<!-- Equip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-success float-right ml-2"><</button>
+										<button type="button" class="btn btn-sm btn-success float-end ms-2"><</button>
 									</div>
 									<!-- Unequip Button -->
 									<div class="col-md-1">
-										<button type="button" class="btn btn-sm btn-danger float-right ml-2">X</button>
+										<button type="button" class="btn btn-sm btn-danger float-end ms-2">X</button>
 									</div>
 								</div>
 							</div>
 							<div class="container col-md-4">
+								
 							</div>
 						</div>
 
