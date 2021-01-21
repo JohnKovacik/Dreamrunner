@@ -16,7 +16,7 @@ $(function () {
 	
 	
 	setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
-	'You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them.', '', '', '', '');
+	"You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them. It's up to you, really.", '', '', '', '');
 	
 	
 })
@@ -126,7 +126,7 @@ function handleClick(id) {
 			break;
 		default:
 			setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
-				'You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them. Seriously. Click the "Converse" button, just below this text.', '', '', '', '');
+				"You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them. It's up to you, really. Seriously. Click either the 'Converse' or 'Attack' button, just below this text.", '', '', '', '');
 		break;
 	}
 }
