@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 
-		<!-- Nav tabs -->
+			<!-- Nav tabs -->
 			<ul class="nav nav-tabs nav-justified mt-2" role="tablist">
 				<li class="nav-item">
 					<a class="nav-link active" data-toggle="tab" href="#encounter" id="encounterTab" role="tab">Encounter</a>
@@ -75,6 +75,7 @@
 
 				<!-- Encounter Pane -->
 				<div class="tab-pane fade show active" id="encounter" role="tabpanel">
+
 					<div class="container container-gold border-top-0 card">
 
 						<div class="row add_divider">
@@ -87,16 +88,32 @@
 							</div>
 						</div>
 						
-						<div class="row mb-4">
-							<div class="col-md-7">
-								<img src="img/pics/Encounter_Gentlemen.png" id="encounterImage" class="col-md-12" alt="">
+						<div class="row mb-4" id="encounterPanel">
+							<div class="col-md-4">
+								<img src="img/pics/Placeholder.png" id="encounterImage" class="col-md-12" alt="">
 							</div>
-							<div class="col-md-5" id="encounterText">
+							<div class="col-md-8" id="encounterText">
 								<p>Text goes here.</p>
 							</div>
 						</div>
 
-						<div class="row mb-3 mt-3">
+						<div class="row mb-4" id="combatPanel" style="display: none;">
+							<div class="col-md-4">
+								<img src="img/pics/Placeholder.png" id="combatImage" class="col-md-12" alt="">
+							</div>
+							<div class="col-md-8" id="combatText">
+								<div class="container">
+									<div class="row">
+										<p>Combat options</p>
+									</div>
+									<div class="row">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mb-3 mt-3" id="encounterButtons">
 							<div class="col-md-1">
 								<h5>Reaction:</h5>
 							</div>
@@ -117,6 +134,19 @@
 								<button type="button" id="response4" class="btn btn-response btn-sm btn-width-100 btn-default float-right ml-2">(blank)</button>
 							</div>
 						</div>
+
+						<div class="row mb-3 mt-3" id="combatButtons" style="display: none;">
+							<div class="col-md-1">
+								<h5>Action:</h5>
+							</div>
+							<div class="col-md-11">
+								<button type="button" id="flee" class="btn btn-combat btn-sm btn-width-100 btn-default float-right ml-2">Flee</button>
+								<button type="button" id="wait" class="btn btn-combat btn-sm btn-width-100 btn-warning float-right ml-2">Wait</button>
+								<button type="button" id="examine" class="btn btn-combat btn-sm btn-width-100 btn-info float-right ml-2">Examine</button>
+								<button type="button" id="execute" class="btn btn-combat btn-sm btn-width-100 btn-primary float-right ml-2">Execute</button>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 			
@@ -377,6 +407,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

@@ -2,6 +2,10 @@
 var encounterState = '';
 
 $(function () {
+	// Make sure combat panels are hidden;
+	$('#combatPanel').hide();
+	$('#combatButtons').hide();
+	
 	$('[data-toggle="tooltip"]').tooltip();
 	
 	$('.btn').click(function(){ handleClick(this.id) });
@@ -19,9 +23,18 @@ $(function () {
 
 function setEncounter (state, title, name, imageSrc, text, response1, response2, response3, response4) {
 	encounterState = state;
+	
+	// Set UI to encounter mode
+	$('#encounterPanel').show();
+	$('#encounterButtons').show();
+
+	$('#combatPanel').hide();
+	$('#combatButtons').hide();
+	
 	$('#encounterPanelTitle').html(title);
 	$('#encounterPanelName').html(name);
 	$('#encounterImage').attr('src', 'img/pics/' + imageSrc);
+	$('#combatImage').attr('src', 'img/pics/' + imageSrc); // Set this for combat as well, in case we need to enter that mode.
 	$('#encounterText').html(text);
 	
 	if (response1 == '') {
@@ -34,7 +47,13 @@ function setEncounter (state, title, name, imageSrc, text, response1, response2,
 		
 		
 		setResponseButton('#response1', response1);
-		setResponseButton('#response2', response2);
+		
+		if (response2 == '') {
+			$('#response2').hide();
+		} else {
+			setResponseButton('#response2', response2);
+			$('#response2').show();
+		}
 		
 		if (response3 == '') {
 			$('#response3').hide();
@@ -52,6 +71,16 @@ function setEncounter (state, title, name, imageSrc, text, response1, response2,
 	}
 }
 
+function enterCombat(target) {
+	// Set UI to combat mode
+	$('#encounterPanel').hide();
+	$('#encounterButtons').hide();
+
+	$('#combatPanel').show();
+	$('#combatButtons').show();
+	
+}
+
 function setResponseButton(id, code) {
 
 	var v = code.split(':');
@@ -60,15 +89,21 @@ function setResponseButton(id, code) {
 }
 
 function handleClick(id) {
-
 	switch(id) {
 		case 'converse':
 			setEncounter('start', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
 				'The wizard leader says stuff. How do you react?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
 			break;
 		case 'response1': // happy
-			setEncounter('start', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
-				'The wizard seems pleased as well. How do you react to his reaction?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
+			switch(encounterState) {
+				case 'converse':
+					setEncounter('start', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
+						'The wizard seems pleased as well. How do you react to his reaction?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
+					break;
+				case 'combat':
+					enterCombat('Harvester');
+					break;
+			}
 			break;
 		case 'response2': // Sad
 			setEncounter('start', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
@@ -80,10 +115,13 @@ function handleClick(id) {
 			break;
 		case 'response4':
 			break;
-	  default:
-		setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
-			'You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them. Seriously. Click the "Converse" button, just below this text.', '', '', '', '');
-		// code block
+		case 'attack':
+			setEncounter('combat', 'Dream of Freedom City', 'Fighting a Harvester', 'Combat_01.png', 
+				'Attacking the wizard was not a wise decision. He summons a viscious-looking spectral creature known as a Harvester. It appears intent on swallowing your soul.', 'btn-danger:Fight!', '', '', '');
+			break;
+		default:
+			setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
+				'You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them. Seriously. Click the "Converse" button, just below this text.', '', '', '', '');
 		break;
 	}
 }	
