@@ -78,22 +78,21 @@
 					<div class="container container-gold border-top-0 card">
 
 						<div class="row add_divider">
-							<div class="col text-center"><h1>Dream Realm Name</h1></div>
+							<div class="col text-center"><h1><span id="encounterPanelTitle">Dream Realm Name</span></h1></div>
 						</div>
 						
 						<div class="row mt-2">
 							<div class="col-md-12">
-								<h3>Realm Encounter Name</h3>
+								<h3><span id="encounterPanelName">Realm Encounter Name</span></h3>
 							</div>
 						</div>
 						
 						<div class="row mb-4">
 							<div class="col-md-7">
-								<img src="img/pics/Encounter_Gentlemen.png" class="col-md-12" alt="">
+								<img src="img/pics/Encounter_Gentlemen.png" id="encounterImage" class="col-md-12" alt="">
 							</div>
-							<div class="col-md-5">
-								<p>Encounter <i>Level X</i>:</p>
-								<p>Fusce faucibus bibendum sit nam urna pulvinar aenean. Enim dolor mi elementum dis tristique aliquet, scelerisque mi dis. Conubia vestibulum class pellentesque egestas lectus mus eleifend vivamus blandit. </p> <p>Vel arcu eleifend habitasse. Fames tristique blandit in et laoreet aenean, aliquam neque vel. Magnis dictum mollis ultrices natoque vitae ullamcorper tincidunt dictum. In convallis molestie, nascetur ligula. Potenti.</p>
+							<div class="col-md-5" id="encounterText">
+								<p>Text goes here.</p>
 							</div>
 						</div>
 
@@ -102,15 +101,20 @@
 								<h5>Reaction:</h5>
 							</div>
 							<div class="col-md-11">
-								<button type="button" class="btn btn-sm btn-width-100 btn-default float-right ml-2">Leave Realm</button>
-								<button type="button" class="btn btn-sm btn-width-100 btn-primary float-right ml-2">Ignore</button>
-								<button type="button" class="btn btn-sm btn-width-100 btn-info float-right ml-2">Converse</button>
-								<button type="button" class="btn btn-sm btn-width-100 btn-success float-right ml-2">Ensnare</button>
-								<button type="button" class="btn btn-sm btn-width-100 btn-success float-right ml-2">Befriend</button>
-								<button type="button" class="btn btn-sm btn-width-100 btn-warning float-right ml-2">Uplift</button>
-								<button type="button" class="btn btn-sm btn-width-100 btn-warning float-right ml-2">Neutralize</button>
-								<button type="button" class="btn btn-sm btn-width-100 btn-danger float-right ml-2">Attack</button>
-								<button type="button" class="btn btn-sm btn-width-100 btn-danger float-right ml-2">Devour</button>
+								<button type="button" id="leave" class="btn btn-action btn-sm btn-width-100 btn-default float-right ml-2">Leave Realm</button>
+								<button type="button" id="ignore" class="btn btn-action btn-sm btn-width-100 btn-primary float-right ml-2">Ignore</button>
+								<button type="button" id="converse" class="btn btn-action btn-sm btn-width-100 btn-info float-right ml-2">Converse</button>
+								<button type="button" id="ensnare" class="btn btn-action btn-sm btn-width-100 btn-success float-right ml-2">Ensnare</button>
+								<button type="button" id="befriend" class="btn btn-action btn-sm btn-width-100 btn-success float-right ml-2">Befriend</button>
+								<button type="button" id="uplift" class="btn btn-action btn-sm btn-width-100 btn-warning float-right ml-2">Uplift</button>
+								<button type="button" id="neutralize" class="btn btn-action btn-sm btn-width-100 btn-warning float-right ml-2">Neutralize</button>
+								<button type="button" id="attack" class="btn btn-action btn-sm btn-width-100 btn-danger float-right ml-2">Attack</button>
+								<button type="button" id="devour" class="btn btn-action btn-sm btn-width-100 btn-danger float-right ml-2">Devour</button>
+								
+								<button type="button" id="response1" class="btn btn-response btn-sm btn-width-100 btn-default float-right ml-2">(blank)</button>
+								<button type="button" id="response2" class="btn btn-response btn-sm btn-width-100 btn-default float-right ml-2">(blank)</button>
+								<button type="button" id="response3" class="btn btn-response btn-sm btn-width-100 btn-default float-right ml-2">(blank)</button>
+								<button type="button" id="response4" class="btn btn-response btn-sm btn-width-100 btn-default float-right ml-2">(blank)</button>
 							</div>
 						</div>
 					</div>
