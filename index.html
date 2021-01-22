@@ -11,50 +11,53 @@
 
 	<meta charset="utf-8" />
 	<title>Dreamrunner</title>
-	<script type="text/javascript" src="./dreamrunner.js">
-
-	</script>
+	<script type="text/javascript" src="./dreamrunner.js"></script>
 	<link rel="stylesheet" href="./dreamrunner.css">
 </head>
 <body>
 		<div class="container">
 			<!-- Character Info -->
 			<div class="container container-gold card mt-3">
-				<div class="row mb-2 mt-3">
+				<div class="row my-2">
 					<div class="col-md-4">
 						<div class="col"><h3>Character Name</h3></div>
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/lethargy.png" class="icon" alt="Lethargy" data-toggle="tooltip" data-placement="bottom" title="LETHARGY: Dreamers can only stay in the Dream Realm while they are lethargic. Once your Lethargy is gone, you awaken, refreshed and ready to start the day. You can't return to the dream world until the next day.">
-						100
+						<span class="charCurrentValue" id="lethargyVal">100</span>
+						<img src="img/icons/lethargy.png" class="icon float-end me-4 mt-2" alt="Lethargy" data-toggle="tooltip" data-placement="bottom" title="LETHARGY: Dreamers can only stay in the Dream Realm while they are lethargic. Once your Lethargy is gone, you awaken, refreshed and ready to start the day. You can't return to the dream world until the next day.">
+						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/lucidity.png" class="icon" alt="Lucidity" data-toggle="tooltip" data-placement="bottom" title="LUCIDITY: Lucid dreaming takes its toll. Changing the dream realm around you requires effort, and once you run out of Lucidity, you will need to recover before you can continue to make alterations or use many of your abilities.">
-						100
+						<span class="charCurrentValue" id="lucidityVal">100</span>
+						<img src="img/icons/lucidity.png" class="icon float-end me-4 mt-2" alt="Lucidity" data-toggle="tooltip" data-placement="bottom" title="LUCIDITY: Lucid dreaming takes its toll. Changing the dream realm around you requires effort, and once you run out of Lucidity, you will need to recover before you can continue to make alterations or use many of your abilities.">
+						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/confidence.png" class="icon" alt="Confidence" data-toggle="tooltip" data-placement="bottom" title="CONFIDENCE: Dreamrunners must have confidence to face the dream realm. If your Confidence is lost, you retreat to your fortress to recover.">
-						100
+						<span class="charCurrentValue" id="confidenceVal">100</span>
+						<img src="img/icons/confidence.png" class="icon float-end me-4 mt-2" alt="Confidence" data-toggle="tooltip" data-placement="bottom" title="CONFIDENCE: Dreamrunners must have confidence to face the dream realm. If your Confidence is lost, you retreat to your fortress to recover.">
+						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
-						<img src="img/icons/ephemera.png" class="icon" alt="Ephemera" data-toggle="tooltip" data-placement="bottom" title="EPHEMERA: Ephemera are bits of dream substance, and can be used as currency, among other things.">
-						100
+						<span class="charCurrentValue" id="idVal">0</span>
+						<img src="img/icons/id.png" class="icon float-end me-4 mt-2" alt="Id" data-toggle="tooltip" data-placement="bottom" title="ID: The Id is the primitive and instinctual part of the mind that contains sexual and aggressive drives. If your Id becomes dominant, your reactions will be limited to those that the Id finds acceptable.">
+						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
+					</div>
+					<div class="col-md-1">
+						<span class="charCurrentValue" id="superegoVal">0</span>
+						<img src="img/icons/superego.png" class="icon float-end me-4 mt-2" alt="Superego" data-toggle="tooltip" data-placement="bottom" title="SUPEREGO: The Superego operates as a moral conscience. If your Superego becomes dominant, your reactions will be limited to those that the Superego finds acceptable.">
+						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
 						<img src="img/icons/ego.png" class="icon" alt="Ego" data-toggle="tooltip" data-placement="bottom" title="EGO: Your Ego is your sense of self. As it increases, your abilities will grow.">
-						100
-					</div>
-					<div class="col-md-1">
-						<img src="img/icons/id.png" class="icon" alt="Id" data-toggle="tooltip" data-placement="bottom" title="ID: The Id is the primitive and instinctual part of the mind that contains sexual and aggressive drives. If your Id becomes dominant, your reactions will be limited to those that the Id finds acceptable.">
-						100
-					</div>
-					<div class="col-md-1">
-						<img src="img/icons/superego.png" class="icon" alt="Superego" data-toggle="tooltip" data-placement="bottom" title="SUPEREGO: The Superego operates as a moral conscience. If your Superego becomes dominant, your reactions will be limited to those that the Superego finds acceptable.">
-						100
+						<span class="charMaxValue" id="egoVal">1</span>
 					</div>
 					<div class="col-md-1">
 						<img src="img/icons/experiences.png" class="icon" alt="Experiences" data-toggle="tooltip" data-placement="bottom" title="EXPERIENCES: Experiences gained while exploring the dream realm can be spent to increase your Ego, and are also required to gain access to new skills and abilities.">
-						100
+						<span class="charMaxValue" id="experiencesVal">0</span>
+					</div>
+					<div class="col-md-1">
+						<img src="img/icons/ephemera.png" class="icon" alt="Ephemera" data-toggle="tooltip" data-placement="bottom" title="EPHEMERA: Ephemera are bits of dream substance, and can be used as currency, among other things.">
+						<span class="charMaxValue" id="ephemeraVal">0</span>
 					</div>
 				</div>
 			</div>
@@ -117,7 +120,7 @@
 										<div class="row">
 											<div class="col-md-2">
 												<div class="form-check">
-													<input class="form-check-input" type="radio" name="radioExecute" id="radioExecutePracticed">
+													<input class="form-check-input" type="radio" name="radioExecute" id="radioExecutePracticed" value="practiced">
 													<label class="form-check-label" for="radioExecute">Practiced</label>
 												</div>
 											</div>
@@ -135,7 +138,7 @@
 										<div class="row mb-3">
 											<div class="col-md-2">
 												<div class="form-check">
-													<input class="form-check-input" type="radio" name="radioExecute" id="radioExecuteSpontaneous">
+													<input class="form-check-input" type="radio" name="radioExecute" id="radioExecuteSpontaneous" value="spontaneous">
 													<label class="form-check-label" for="radioExecute">Spontaneous</label>
 												</div>
 											</div>

@@ -4,7 +4,6 @@ body {
 }
 
 .combatResults {
-	
 	color: #ffffff;
 }
 
@@ -29,8 +28,19 @@ body {
 }
 
 .icon {
-	width: 32px;
-	height: 32px;
+	width: 24px;
+	height: 24px;
+}
+
+.charCurrentValue {
+	color: #ffffff;
+	border-color: #D4AF37;
+	border-bottom: 1px solid;
+	padding-bottom: 2px !important;
+}
+
+.charMaxValue {
+	color: #ffffff;
 }
 
 .equipped_item_icon {

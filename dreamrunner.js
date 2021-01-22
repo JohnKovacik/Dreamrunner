@@ -1,6 +1,15 @@
 
 var encounterState = '';
 
+var dictPracticedManuvers = {
+	1 : "Fire Bolt", 
+	2 : "Cold Ray", 
+	3 : "Spear of Rage", 
+	4 : "Shield of Conviction", 
+	5 : "Invisibility", 
+};
+
+
 // Page initialization
 $(function () {
 	// Make sure combat panels are hidden;
@@ -228,4 +237,10 @@ function ddlPracticedChange(ctrl) {
 
 function performManeuver() {
 	// Determine maneuver
+	var radioVal = $('input[name="radioExecute"]:checked').val();
+	
+	if (radioVal == "practiced") {
+		var selected = $('#ddlPracticed').find(':selected').val();
+		updateCombatText("You execute " + dictPracticedManuvers[selected] + ". The Harvester is unimpressed.");
+	}
 }
