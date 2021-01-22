@@ -3,6 +3,11 @@ body {
 	background-color: #270c47;
 }
 
+.combatResults {
+	
+	color: #ffffff;
+}
+
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link.active {
 	background-color: #270c47;
 	border-color: #D4AF37;

@@ -103,99 +103,106 @@
 							<div class="col-md-4">
 								<img src="img/pics/Placeholder.png" id="combatImage" class="col-md-12" alt="">
 							</div>
-							<div class="col-md-8" id="combatText">
+							<div class="col-md-8">
 								<div class="container">
-									<div class="row">
-										<p>Select Maneuver</p>
-									</div>
-									<div class="row">
-										<div class="col-md-2">
-											<div class="form-check">
-												<input class="form-check-input" type="radio" name="radioExecute" id="radioExecutePracticed">
-												<label class="form-check-label" for="radioExecute">Practiced</label>
-											</div>
-										</div>
-										<div class="col-md-10 mb-3">
-											<select id="ddlPracticed" class="form-select form-select-sm" aria-label=".form-select-sm select example">
-												<option selected>Select practiced maneuver</option>
-												<option value="1">Fire Bolt</option>
-												<option value="2">Cold Ray</option>
-												<option value="3">Spear of Rage</option>
-												<option value="4">Shield of Conviction</option>
-												<option value="5">Invisibility</option>
-											</select>
-										</div>
-									</div>
 									<div class="row mb-3">
-										<div class="col-md-2">
-											<div class="form-check">
-												<input class="form-check-input" type="radio" name="radioExecute" id="radioExecuteSpontaneous">
-												<label class="form-check-label" for="radioExecute">Spontaneous</label>
-											</div>
-										</div>
-										<div class="col-md-10">
-											<select id="ddlSpontaneousType" class="form-select form-select-sm" aria-label=".form-select-sm select example">
-												<option selected>Select maneuver type</option>
-												<option value="restore">Restore Confidence</option>
-												<option value="attack">Unleash Attack</option>
-												<option value="shield">Create Shield</option>
-												<option value="relax">Calm Down</option>
-												<option value="rage">Get Emotional</option>
-												<option value="wish">Alter "Reality"</option>
-											</select>
+										<div class="col-md-12 combatResults" id="combatText">
+											The Harvester rushes towards you, giving you only moments to react.
 										</div>
 									</div>
-									<div class="row combatCustomPanel" id="combatRestoreConfidencePanel">
-										<div class="col-md-2">
+									<div class="container container-gold card">
+										<div class="row mt-2">
+											<p>Select Maneuver</p>
 										</div>
-										<div class="col-md-10">
-											<div class="container container-gold card">
-												At the cost of some lucidity, you can boost your confidence. Boosting your confidence over your normal level is possible, but you'll lose the excess rapidly in combat, and all excess will vanish once combat is complete. 
+										<div class="row">
+											<div class="col-md-2">
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="radioExecute" id="radioExecutePracticed">
+													<label class="form-check-label" for="radioExecute">Practiced</label>
+												</div>
+											</div>
+											<div class="col-md-10 mb-3">
+												<select id="ddlPracticed" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+													<option selected>Select practiced maneuver</option>
+													<option value="1">Fire Bolt</option>
+													<option value="2">Cold Ray</option>
+													<option value="3">Spear of Rage</option>
+													<option value="4">Shield of Conviction</option>
+													<option value="5">Invisibility</option>
+												</select>
 											</div>
 										</div>
-									</div>
-									<div class="row combatCustomPanel" id="combatUnleashAttackPanel">
-										<div class="col-md-2">
-										</div>
-										<div class="col-md-10">
-											<div class="container container-gold card">
-												&nbsp;
+										<div class="row mb-3">
+											<div class="col-md-2">
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="radioExecute" id="radioExecuteSpontaneous">
+													<label class="form-check-label" for="radioExecute">Spontaneous</label>
+												</div>
+											</div>
+											<div class="col-md-10">
+												<select id="ddlSpontaneousType" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+													<option selected>Select maneuver type</option>
+													<option value="restore">Restore Confidence</option>
+													<option value="attack">Unleash Attack</option>
+													<option value="shield">Create Shield</option>
+													<option value="relax">Calm Down</option>
+													<option value="rage">Get Emotional</option>
+													<option value="wish">Alter "Reality"</option>
+												</select>
 											</div>
 										</div>
-									</div>
-									<div class="row combatCustomPanel" id="combatCreateSheildPanel">
-										<div class="col-md-2">
-										</div>
-										<div class="col-md-10">
-											<div class="container container-gold card">
-												&nbsp;
+										<div class="row combatCustomPanel mb-3" id="combatRestoreConfidencePanel">
+											<div class="col-md-2">
+											</div>
+											<div class="col-md-10">
+												<div class="container container-gold card">
+													At the cost of some lucidity, you can boost your confidence. Boosting your confidence over your normal level is possible, but you'll lose the excess rapidly in combat, and all excess will vanish once combat is complete. 
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="row combatCustomPanel" id="combatCalmDownPanel">
-										<div class="col-md-2">
-										</div>
-										<div class="col-md-10">
-											<div class="container container-gold card">
-												&nbsp;
+										<div class="row combatCustomPanel mb-3" id="combatUnleashAttackPanel">
+											<div class="col-md-2">
+											</div>
+											<div class="col-md-10">
+												<div class="container container-gold card">
+													&nbsp;
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="row combatCustomPanel" id="combatGetEmotionalPanel">
-										<div class="col-md-2">
-										</div>
-										<div class="col-md-10">
-											<div class="container container-gold card">
-												&nbsp;
+										<div class="row combatCustomPanel mb-3" id="combatCreateSheildPanel">
+											<div class="col-md-2">
+											</div>
+											<div class="col-md-10">
+												<div class="container container-gold card">
+													&nbsp;
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="row combatCustomPanel" id="combatAlterRealityPanel">
-										<div class="col-md-2">
+										<div class="row combatCustomPanel mb-3" id="combatCalmDownPanel">
+											<div class="col-md-2">
+											</div>
+											<div class="col-md-10">
+												<div class="container container-gold card">
+													&nbsp;
+												</div>
+											</div>
 										</div>
-										<div class="col-md-10">
-											<div class="container container-gold card">
-												&nbsp;
+										<div class="row combatCustomPanel mb-3" id="combatGetEmotionalPanel">
+											<div class="col-md-2">
+											</div>
+											<div class="col-md-10">
+												<div class="container container-gold card">
+													&nbsp;
+												</div>
+											</div>
+										</div>
+										<div class="row combatCustomPanel mb-3" id="combatAlterRealityPanel">
+											<div class="col-md-2">
+											</div>
+											<div class="col-md-10">
+												<div class="container container-gold card">
+													&nbsp;
+												</div>
 											</div>
 										</div>
 									</div>

@@ -18,13 +18,14 @@ $(function () {
 	$('#radioExecutePracticed').click( function(){ radioExecutePracticedClick() });
 	$('#radioExecuteSpontaneous').click( function(){ radioExecuteSpontaneousClick() });
 	$('#ddlSpontaneousType').change( function() { ddlSpontaneousTypeChange(this) });
+	$('#ddlPracticed').change( function() { ddlPracticedChange(this) });
 	
 	$('input[name="radioExecute"]').prop('checked', false);
 	$('#ddlSpontaneousType').attr('disabled', true);
 	$('#ddlPracticed').attr('disabled', true);
 	
 	setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
-	"You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them. It's up to you, really.", '', '', '', '');
+		"You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them. It's up to you, really.", '', '', '', '');
 	
 	
 })
@@ -92,6 +93,7 @@ function enterCombat(target) {
 	$('#combatPanel').show();
 	$('#combatButtons').show();
 	
+	$('#execute').attr('disabled', true);
 }
 
 function setResponseButton(id, code) {
@@ -103,16 +105,31 @@ function setResponseButton(id, code) {
 
 function handleClick(id) {
 	switch(id) {
-		case 'btnSpontaneousTypeHelp':
-			
-			break;
-		case 'btnPracticedHelp':
-			
-			break;
+		// Encounter Buttons
 		case 'converse':
 			setEncounter('converse', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
 				'The wizard leader says stuff. How do you react?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
 			break;
+		case 'attack':
+			setEncounter('combat', 'Dream of Freedom City', 'Fighting a Harvester', 'Combat_01.png', 
+				'Attacking the wizard was not a wise decision. He summons a viscious-looking spectral creature known as a Harvester. It appears intent on swallowing your soul.', 'btn-danger:Fight!', '', '', '');
+			break;
+			
+		// Combat Buttons
+		case 'flee':
+			setEncounter('converse', 'Dream of Freedom City', 'Outside the Sanctum', 'Encounter_Hedonists.png', 
+				'You flee from the scary-looking Harvester. You find yourself outside on the sidewalk, being approached by some crazy-looking partiers.', '', '', '', '');
+			break;
+		case 'wait':
+			updateCombatText("The Harvester hesitates. He honestly didn't expect you to just sit there.");
+			break;
+		case 'examine':
+			updateCombatText("The Harvester is an embodiment of pure rage.");
+			break;
+		case 'execute':
+			performManeuver();
+			break;
+			// Response Buttons
 		case 'response1': // happy
 			switch(encounterState) {
 				case 'converse':
@@ -134,10 +151,7 @@ function handleClick(id) {
 			break;
 		case 'response4':
 			break;
-		case 'attack':
-			setEncounter('combat', 'Dream of Freedom City', 'Fighting a Harvester', 'Combat_01.png', 
-				'Attacking the wizard was not a wise decision. He summons a viscious-looking spectral creature known as a Harvester. It appears intent on swallowing your soul.', 'btn-danger:Fight!', '', '', '');
-			break;
+		// No button handler defined
 		default:
 			setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
 				"You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them. It's up to you, really. Seriously. Click either the 'Converse' or 'Attack' button, just below this text.", '', '', '', '');
@@ -145,16 +159,8 @@ function handleClick(id) {
 	}
 }
 
-function btnSpontaneousTypeHelpClick() {
-	var alertText = '';
-	var selectedVal = $('#ddlSpontaneousType').find(':selected').val();
-	
-	
-}
-
-function btnPracticedHelpClick() {
-	var alertText = '';
-	var selectedVal = $('#ddlPracticed').find(':selected').val();
+function updateCombatText(text) {
+	$('#combatText').html(text);
 }
 
 function radioExecutePracticedClick() {
@@ -181,6 +187,7 @@ function ddlSpontaneousTypeChange(ctrl) {
 
 	// Hide all combat panels.
 	$('.combatCustomPanel').hide();
+	$('#execute').removeAttr('disabled');
 
 	switch(selectedVal) {
 		case 'restore':
@@ -202,6 +209,23 @@ function ddlSpontaneousTypeChange(ctrl) {
 			$('#combatAlterRealityPanel').show();
 			break;
 		default:
+			$('#execute').attr('disabled', true);
 			break;
 	}
+}
+
+function ddlPracticedChange(ctrl) {
+	var selectedVal = $(ctrl).find(':selected').val();
+	var selectedText = $(ctrl).find(':selected').text();
+	
+	if (selectdVal = '') {
+		$('#execute').attr('disabled', true);
+	}
+	else {
+		$('#execute').removeAttr('disabled');
+	}
+}
+
+function performManeuver() {
+	// Determine maneuver
 }
