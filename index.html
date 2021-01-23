@@ -133,7 +133,7 @@
 													<option value="2">Cold Ray</option>
 													<option value="3">Bellow of Rage</option>
 													<option value="4">Strength of Conviction</option>
-													<option value="5">Invisibility</option>
+													<option value="5">Healing</option>
 												</select>
 											</div>
 										</div>
@@ -152,16 +152,15 @@
 													<option value="shield">Create Shield</option>
 													<option value="boostsuperego">Strengthen Resolve</option>
 													<option value="boostid">Get Emotional</option>
-													<option value="wish">Alter "Reality"</option>
+													<option value="wish">Lucid Change</option>
 												</select>
 											</div>
 										</div>
-										<!-- At the cost of some lucidity, you can boost your confidence. Boosting your confidence over your normal level is possible, but you'll lose the excess rapidly in combat, and all excess will vanish once combat is complete.  -->
 										<div class="row combatCustomPanel mb-3" id="combatConfigureSimplePanel">
 											<div class="col-md-2">
 											</div>
 											<div class="col-md-5">
-												<select id="ddlSimpleLevel" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+												<select id="ddlSimpleLevel" class="form-select updateCombatEffectsPanel form-select-sm" aria-label=".form-select-sm select example">
 													<option value="" selected>- Select Level - </option>
 													<option value="1">Level 1</option>
 													<option value="2">Level 2</option>
@@ -174,7 +173,7 @@
 												</select>
 											</div>
 											<div class="col-md-5">
-												<select id="ddlSimpleStrength" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+												<select id="ddlSimpleStrength" class="form-select updateCombatEffectsPanel form-select-sm" aria-label=".form-select-sm select example">
 													<option value="" selected>- Select Strength -</option>
 													<option>Weak</option>
 													<option>Normal</option>
@@ -187,18 +186,18 @@
 											<div class="col-md-2">
 											</div>
 											<div class="col-md-4">
-												<select id="ddlTypedDamage" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+												<select id="ddlTypedDamage" class="form-select updateCombatEffectsPanel form-select-sm" aria-label=".form-select-sm select example">
 													<option value="" selected>- Select Damage Type - </option>
-													<option value="1">Fire</option>
-													<option value="2">Cold</option>
-													<option value="3">Physical</option>
-													<option value="4">Electrical</option>
-													<option value="5">Emotional</option>
-													<option value="6">Intellectual</option>
+													<option>Fire</option>
+													<option>Cold</option>
+													<option>Physical</option>
+													<option>Electrical</option>
+													<option>Emotional</option>
+													<option>Intellectual</option>
 												</select>
 											</div>
 											<div class="col-md-3">
-												<select id="ddlTypedLevel" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+												<select id="ddlTypedLevel" class="form-select updateCombatEffectsPanel form-select-sm" aria-label=".form-select-sm select example">
 													<option value="" selected>- Select Level - </option>
 													<option value="1">Level 1</option>
 													<option value="2">Level 2</option>
@@ -211,12 +210,12 @@
 												</select>
 											</div>
 											<div class="col-md-3">
-												<select id="ddlTypedStrength" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+												<select id="ddlTypedStrength" class="form-select updateCombatEffectsPanel form-select-sm" aria-label=".form-select-sm select example">
 													<option value="" selected>- Select Strength -</option>
 													<option>Weak</option>
 													<option>Normal</option>
-													<option>Strong</option>
-													<option>Epic</option>
+													<option disabled>Strong</option>
+													<option disabled>Epic</option>
 												</select>
 											</div>
 										</div>
@@ -224,7 +223,7 @@
 											<div class="col-md-2">
 											</div>
 											<div class="col-md-5">
-												<select id="ddlEffectType" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+												<select id="ddlEffectType" class="form-select updateCombatEffectsPanel form-select-sm" aria-label=".form-select-sm select example">
 													<option value="" selected>- Select Effect - </option>
 													<option>Paralyze</option>
 													<option>Banish</option>
@@ -235,7 +234,7 @@
 												</select>
 											</div>
 											<div class="col-md-5">
-												<select id="ddlEffectStrength" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+												<select id="ddlEffectStrength" class="form-select updateCombatEffectsPanel form-select-sm" aria-label=".form-select-sm select example">
 													<option value="" selected>- Select Strength -</option>
 													<option>Normal</option>
 													<option>Strong</option>
@@ -258,36 +257,20 @@
 						</div>
 
 						<div class="row mb-3 mt-3" id="encounterButtons">
-							<div class="col-md-1">
-								<h5>Reaction:</h5>
-							</div>
-							<div class="col-md-11">
-								<button type="button" id="leave" class="btn btn-action btn-sm btn-width-100 btn-light float-end ms-2">Leave Realm</button>
-								<button type="button" id="ignore" class="btn btn-action btn-sm btn-width-100 btn-primary float-end ms-2">Ignore</button>
-								<button type="button" id="converse" class="btn btn-action btn-sm btn-width-100 btn-info float-end ms-2">Converse</button>
-								<button type="button" id="ensnare" class="btn btn-action btn-sm btn-width-100 btn-success float-end ms-2">Ensnare</button>
-								<button type="button" id="befriend" class="btn btn-action btn-sm btn-width-100 btn-success float-end ms-2">Befriend</button>
-								<button type="button" id="uplift" class="btn btn-action btn-sm btn-width-100 btn-warning float-end ms-2">Uplift</button>
-								<button type="button" id="neutralize" class="btn btn-action btn-sm btn-width-100 btn-warning float-end ms-2">Neutralize</button>
-								<button type="button" id="attack" class="btn btn-action btn-sm btn-width-100 btn-danger float-end ms-2">Attack</button>
-								<button type="button" id="devour" class="btn btn-action btn-sm btn-width-100 btn-danger float-end ms-2">Devour</button>
-								
-								<button type="button" id="response1" class="btn btn-response btn-sm btn-width-100 btn-light float-end ms-2">(blank)</button>
-								<button type="button" id="response2" class="btn btn-response btn-sm btn-width-100 btn-light float-end ms-2">(blank)</button>
-								<button type="button" id="response3" class="btn btn-response btn-sm btn-width-100 btn-light float-end ms-2">(blank)</button>
-								<button type="button" id="response4" class="btn btn-response btn-sm btn-width-100 btn-light float-end ms-2">(blank)</button>
-							</div>
-						</div>
-
-						<div class="row mb-3 mt-3" id="combatButtons" style="display: none;">
-							<div class="col-md-1">
-								<h5>Action:</h5>
-							</div>
-							<div class="col-md-11">
-								<button type="button" id="flee" class="btn btn-combat btn-sm btn-width-100 btn-light float-end ms-2">Flee</button>
-								<button type="button" id="wait" class="btn btn-combat btn-sm btn-width-100 btn-warning float-end ms-2">Wait</button>
-								<button type="button" id="examine" class="btn btn-combat btn-sm btn-width-100 btn-info float-end ms-2">Examine</button>
-								<button type="button" id="execute" class="btn btn-combat btn-sm btn-width-100 btn-primary float-end ms-2">Execute</button>
+							<div class="col-md-12">
+								<button type="button" id="leave" class="btn btn-all btn-sm btn-width-standard btn-light float-end ms-2">Leave Realm</button>
+								<button type="button" id="alter" class="btn btn-action btn-response btn-sm btn-width-standard btn-light float-end ms-2">Lucid Change</button>
+								<button type="button" id="ignore" class="btn btn-action btn-sm btn-width-standard btn-primary float-end ms-2">Ignore</button>
+								<button type="button" id="converse" class="btn btn-action btn-sm btn-width-standard btn-info float-end ms-2">Converse</button>
+								<button type="button" id="attack" class="btn btn-action btn-sm btn-width-standard btn-danger float-end ms-2">Attack</button>
+								<button type="button" id="response1" class="btn btn-response btn-sm btn-width-standard btn-light float-end ms-2">(blank)</button>
+								<button type="button" id="response2" class="btn btn-response btn-sm btn-width-standard btn-light float-end ms-2">(blank)</button>
+								<button type="button" id="response3" class="btn btn-response btn-sm btn-width-standard btn-light float-end ms-2">(blank)</button>
+								<button type="button" id="response4" class="btn btn-response btn-sm btn-width-standard btn-light float-end ms-2">(blank)</button>
+								<button type="button" id="flee" class="btn btn-combat btn-sm btn-width-standard btn-light float-end ms-2">Flee</button>
+								<button type="button" id="wait" class="btn btn-combat btn-sm btn-width-standard btn-warning float-end ms-2">Wait</button>
+								<button type="button" id="examine" class="btn btn-combat btn-sm btn-width-standard btn-info float-end ms-2">Examine</button>
+								<button type="button" id="execute" class="btn btn-combat btn-sm btn-width-standard btn-primary float-end ms-2">Execute</button>
 							</div>
 						</div>
 						

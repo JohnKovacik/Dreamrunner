@@ -24,18 +24,17 @@ $(function () {
 	$('#radioExecuteSpontaneous').click( function(){ radioExecuteSpontaneousClick() });
 	$('#ddlSpontaneousType').change( function() { ddlSpontaneousTypeChange(this) });
 	$('#ddlPracticed').change( function() { ddlPracticedChange(this) });
-	
-	$('#ddlSimpleLevel').change( function() { updateCombatEffectsPanel() });
-	$('#ddlSimpleStrength').change( function() { updateCombatEffectsPanel() });
-	
+	$('.updateCombatEffectsPanel ').change( function() { updateCombatEffectsPanel() });
+
 	$('input[name="radioExecute"]').prop('checked', false);
 	$('#ddlSpontaneousType').attr('disabled', true);
 	$('#ddlPracticed').attr('disabled', true);
 	
+	// DEBUG / PROTOTYPE CALLS
 	setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
 		"You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them. It's up to you, really.", '', '', '', '');
 	
-	
+	setPracticedManeuversStatusDictionary();
 })
 
 // encounterPanelTitle
@@ -48,10 +47,7 @@ function setEncounter (state, title, name, imageSrc, text, response1, response2,
 	
 	// Set UI to encounter mode
 	$('#encounterPanel').show();
-	$('#encounterButtons').show();
-
 	$('#combatPanel').hide();
-	$('#combatButtons').hide();
 	
 	$('#encounterPanelTitle').html(title);
 	$('#encounterPanelName').html(name);
@@ -59,6 +55,7 @@ function setEncounter (state, title, name, imageSrc, text, response1, response2,
 	$('#combatImage').attr('src', 'img/pics/' + imageSrc); // Set this for combat as well, in case we need to enter that mode.
 	$('#encounterText').html(text);
 	
+	$('.btn-combat').hide();
 	if (response1 == '') {
 		$('.btn-response').hide();
 		$('.btn-action').show();
@@ -66,7 +63,6 @@ function setEncounter (state, title, name, imageSrc, text, response1, response2,
 	else {
 		$('.btn-action').hide();
 		$('.btn-response').show();
-		
 		
 		setResponseButton('#response1', response1);
 		
@@ -96,11 +92,11 @@ function setEncounter (state, title, name, imageSrc, text, response1, response2,
 function enterCombat(target) {
 	// Set UI to combat mode
 	$('#encounterPanel').hide();
-	$('#encounterButtons').hide();
-
 	$('#combatPanel').show();
-	$('#combatButtons').show();
-	
+
+	$('.btn-action').hide();
+	$('.btn-response').hide();
+	$('.btn-combat').show();
 	$('#execute').attr('disabled', true);
 }
 
@@ -177,7 +173,6 @@ function radioExecutePracticedClick() {
 	$("#ddlSpontaneousType option:selected").prop("selected", false);
 	$('#ddlSpontaneousType').attr('disabled', true);
 	$('.combatCustomPanel').hide();
-	
 }
 
 function radioExecuteSpontaneousClick() {
@@ -185,7 +180,6 @@ function radioExecuteSpontaneousClick() {
 	$('#ddlSpontaneousType').removeAttr('disabled');
 	$("#ddlPracticed option:selected").prop("selected", false);
 	$('#ddlPracticed').attr('disabled', true);
-	
 }
 
 function ddlSpontaneousTypeChange(ctrl) {
@@ -195,8 +189,10 @@ function ddlSpontaneousTypeChange(ctrl) {
 	// Clear all DDLs 
 	$('#ddlSimpleStrength').val('');
 	$('#ddlSimpleLevel').val('');
+	$('#ddlTypedDamage').val('');
+	$('#ddlTypedLevel').val('');
+	$('#ddlTypedStrength').val('');
 	
-
 	// Hide all combat panels.
 	$('.combatCustomPanel').hide();
 	$('#execute').removeAttr('disabled');
@@ -268,14 +264,15 @@ function getSpontaneousManeuver() {
 	var simpleStrength = $('#ddlSimpleStrength').find(':selected').val();
 	var simpleLevel = $('#ddlSimpleLevel').find(':selected').val();
 	
+	var typedDamage = $('#ddlTypedDamage').find(':selected').val();
+	var typedLevel = $('#ddlTypedLevel').find(':selected').val();
+	var stypedStrength = $('#ddlTypedStrength').find(':selected').val();
+	
+	
 	switch(chosen) {
 		case 'restore': m = new RestoreConfidence(simpleStrength, simpleLevel, false); break;
-		case 'attack':
-			newText = "(Does damage. Cost is 2x higher than equivalent practiced maneuver.)";
-			break;
-		case 'shield':
-			newText = "(Prevents a lot of damage of selected type, before defences are applied. Cost is 2x higher than equivalent practiced maneuver.)";
-			break;
+		case 'attack': m = new UnleashAttack(typedDamage, stypedStrength, typedLevel, false); break;
+		case 'shield': m = new CreateShield(typedDamage, stypedStrength, typedLevel, false); break;
 		case 'boostsuperego': m = new BoostSuperego(simpleStrength, simpleLevel, false); break;
 		case 'boostid': m = new BoostId(simpleStrength, simpleLevel, false); break;
 		case 'wish':
