@@ -4,11 +4,18 @@ var encounterState = '';
 var dictPracticedManuvers = {
 	1 : "Fire Bolt", 
 	2 : "Cold Ray", 
-	3 : "Spear of Rage", 
+	3 : "Bellow of Rage", 
 	4 : "Shield of Conviction", 
 	5 : "Invisibility", 
 };
 
+var dictPracticedManuversStatus = {
+	1 : "<b>Cost:</b> 20 Lucidity<br /><b>Effect:</b> Strong Level 8 Fire Attack<br /><b>Result:</b> 24d6+24 (<i>Est. 108</i>) Fire Damage", 
+	2 : "<b>Cost:</b> 20 Lucidity<br /><b>Effect:</b> Strong Level 8 Cold Attack<br /><b>Result:</b> 24d6+24 (<i>Est. 108</i>) Cold Damage", 
+	3 : "<b>Cost:</b> 24 Lucidity, 16 Superego<br /><b>Effect:</b> Strong Level 8 Id Boost<br /><b>Result:</b> 8d8 (<i>Est. 36</i>) Id Boost", 
+	4 : "<b>Cost:</b> 6 Lucidity, 12 Id<br /><b>Effect:</b> Weak Level 6 Superego Boost<br /><b>Result:</b> 6d4 (<i>Est. 15</i>) Superego Boost", 
+	5 : "Invisibility", 
+};
 
 // Page initialization
 $(function () {
@@ -21,7 +28,10 @@ $(function () {
 	
 	$('.btn').click(function(){ handleClick(this.id) });
 	
-
+	$('label').click(function() {
+		var labelID = $(this).attr('for');
+		$('#'+labelID).trigger('click');
+	});
 	
 	
 	$('#radioExecutePracticed').click( function(){ radioExecutePracticedClick() });
@@ -200,19 +210,19 @@ function ddlSpontaneousTypeChange(ctrl) {
 
 	switch(selectedVal) {
 		case 'restore':
-			$('#combatRestoreConfidencePanel').show();
+			$('#combatConfigureSimplePanel').show();
 			break;
 		case 'attack':
-			$('#combatUnleashAttackPanel').show();
+			$('#combatConfigureTypedPanel').show();
 			break;
 		case 'shield':
-			$('#combatCreateSheildPanel').show();
+			$('#combatConfigureTypedPanel').show();
 			break;
-		case 'relax':
-			$('#combatCalmDownPanel').show();
+		case 'boostsuperego':
+			$('#combatConfigureSimplePanel').show();
 			break;
-		case 'rage':
-			$('#combatGetEmotionalPanel').show();
+		case 'boostid':
+			$('#combatConfigureSimplePanel').show();
 			break;
 		case 'wish':
 			$('#combatAlterRealityPanel').show();
@@ -221,6 +231,7 @@ function ddlSpontaneousTypeChange(ctrl) {
 			$('#execute').attr('disabled', true);
 			break;
 	}
+	updateCombatEffectsPanel();
 }
 
 function ddlPracticedChange(ctrl) {
@@ -233,7 +244,51 @@ function ddlPracticedChange(ctrl) {
 	else {
 		$('#execute').removeAttr('disabled');
 	}
+	
+	updateCombatEffectsPanel();
 }
+
+function updateCombatEffectsPanel() {
+	// var newText = "(Select and configure maneuver to see effect and cost.)";
+	
+	var radioVal = $('input[name="radioExecute"]:checked').val();
+	var newText = radioVal;
+	
+	if (radioVal == "practiced") {
+		var selected = $('#ddlPracticed').find(':selected').val();
+		if (selected != '') {
+			newText = dictPracticedManuversStatus[selected];
+		}
+	}
+	else if (radioVal == "spontaneous") {
+		var chosen = $('#ddlSpontaneousType').find(':selected').val();
+		switch(chosen) {
+			case 'restore':
+				newText = "(Restores confidence. Cost is 2x higher than equivalent practiced maneuver.)";
+				break;
+			case 'attack':
+				newText = "(Does damage. Cost is 2x higher than equivalent practiced maneuver.)";
+				break;
+			case 'shield':
+				newText = "(Prevents a lot of damage of selected type, before defences are applied. Cost is 2x higher than equivalent practiced maneuver.)";
+				break;
+			case 'boostsuperego':
+				newText = "(Boosts superego, and costs/drains id. Cost is 2x higher than equivalent practiced maneuver.)"; 
+				break;
+			case 'boostid':
+				newText = "(Boosts id, and costs/drains superego. Cost is 2x higher than equivalent practiced maneuver.)"; 
+				break;
+			case 'wish':
+				newText = "(Misc. effects that target creature or player. Cost is 2x higher than equivalent practiced maneuver.)"; 
+				break;
+			default:
+				break;
+		}
+	}
+	
+	$('#combatEffectsPanel').html(newText);
+}
+
 
 function performManeuver() {
 	// Determine maneuver

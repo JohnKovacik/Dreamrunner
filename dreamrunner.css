@@ -7,6 +7,12 @@ body {
 	color: #ffffff;
 }
 
+.combatEffects {
+	color: #ffffff;
+	font-family: monospace;
+	font-size: 15px;
+}
+
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link.active {
 	background-color: #270c47;
 	border-color: #D4AF37;
@@ -27,6 +33,11 @@ body {
 	color: #D4AF37;
 }
 
+.container-white {
+	background-color: #333333;
+	border-color: #FFFFFF;
+}
+
 .icon {
 	width: 24px;
 	height: 24px;
@@ -37,10 +48,14 @@ body {
 	border-color: #D4AF37;
 	border-bottom: 1px solid;
 	padding-bottom: 2px !important;
+	font-family: monospace;
+	font-size: 15px;
 }
 
 .charMaxValue {
 	color: #ffffff;
+	font-family: monospace;
+	font-size: 15px;
 }
 
 .equipped_item_icon {

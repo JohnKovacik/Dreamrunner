@@ -38,12 +38,12 @@
 						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
-						<span class="charCurrentValue" id="idVal">0</span>
+						<span class="charCurrentValue" id="idVal">&nbsp;&nbsp;0</span>
 						<img src="img/icons/id.png" class="icon float-end me-4 mt-2" alt="Id" data-toggle="tooltip" data-placement="bottom" title="ID: The Id is the primitive and instinctual part of the mind that contains sexual and aggressive drives. If your Id becomes dominant, your reactions will be limited to those that the Id finds acceptable.">
 						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
-						<span class="charCurrentValue" id="superegoVal">0</span>
+						<span class="charCurrentValue" id="superegoVal">&nbsp;&nbsp;0</span>
 						<img src="img/icons/superego.png" class="icon float-end me-4 mt-2" alt="Superego" data-toggle="tooltip" data-placement="bottom" title="SUPEREGO: The Superego operates as a moral conscience. If your Superego becomes dominant, your reactions will be limited to those that the Superego finds acceptable.">
 						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
 					</div>
@@ -121,16 +121,16 @@
 											<div class="col-md-2">
 												<div class="form-check">
 													<input class="form-check-input" type="radio" name="radioExecute" id="radioExecutePracticed" value="practiced">
-													<label class="form-check-label" for="radioExecute">Practiced</label>
+													<label class="form-check-label" for="radioExecutePracticed">Practiced</label>
 												</div>
 											</div>
 											<div class="col-md-10 mb-3">
 												<select id="ddlPracticed" class="form-select form-select-sm" aria-label=".form-select-sm select example">
-													<option selected>Select practiced maneuver</option>
+													<option value="" selected>Select practiced maneuver</option>
 													<option value="1">Fire Bolt</option>
 													<option value="2">Cold Ray</option>
-													<option value="3">Spear of Rage</option>
-													<option value="4">Shield of Conviction</option>
+													<option value="3">Bellow of Rage</option>
+													<option value="4">Strength of Conviction</option>
 													<option value="5">Invisibility</option>
 												</select>
 											</div>
@@ -139,72 +139,114 @@
 											<div class="col-md-2">
 												<div class="form-check">
 													<input class="form-check-input" type="radio" name="radioExecute" id="radioExecuteSpontaneous" value="spontaneous">
-													<label class="form-check-label" for="radioExecute">Spontaneous</label>
+													<label class="form-check-label" for="radioExecuteSpontaneous">Spontaneous</label>
 												</div>
 											</div>
 											<div class="col-md-10">
 												<select id="ddlSpontaneousType" class="form-select form-select-sm" aria-label=".form-select-sm select example">
-													<option selected>Select maneuver type</option>
+													<option value="" selected>Select maneuver type</option>
 													<option value="restore">Restore Confidence</option>
 													<option value="attack">Unleash Attack</option>
 													<option value="shield">Create Shield</option>
-													<option value="relax">Calm Down</option>
-													<option value="rage">Get Emotional</option>
+													<option value="boostsuperego">Strengthen Resolve</option>
+													<option value="boostid">Get Emotional</option>
 													<option value="wish">Alter "Reality"</option>
 												</select>
 											</div>
 										</div>
-										<div class="row combatCustomPanel mb-3" id="combatRestoreConfidencePanel">
+										<!-- At the cost of some lucidity, you can boost your confidence. Boosting your confidence over your normal level is possible, but you'll lose the excess rapidly in combat, and all excess will vanish once combat is complete.  -->
+										<div class="row combatCustomPanel mb-3" id="combatConfigureSimplePanel">
 											<div class="col-md-2">
 											</div>
-											<div class="col-md-10">
-												<div class="container container-gold card">
-													At the cost of some lucidity, you can boost your confidence. Boosting your confidence over your normal level is possible, but you'll lose the excess rapidly in combat, and all excess will vanish once combat is complete. 
-												</div>
+											<div class="col-md-5">
+												<select id="ddlSimpleLevel" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+													<option value="" selected>- Select Level - </option>
+													<option value="1">Level 1</option>
+													<option value="2">Level 2</option>
+													<option value="3">Level 3</option>
+													<option value="4">Level 4</option>
+													<option value="5">Level 5</option>
+													<option value="6">Level 6</option>
+													<option value="7">Level 7</option>
+													<option value="8">Level 8</option>
+												</select>
+											</div>
+											<div class="col-md-5">
+												<select id="ddlSimpleStrength" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+													<option value="" selected>- Select Strength -</option>
+													<option value="1">Weak</option>
+													<option value="2">Normal</option>
+													<option value="3">Strong</option>
+													<option value="4">Epic</option>
+												</select>
 											</div>
 										</div>
-										<div class="row combatCustomPanel mb-3" id="combatUnleashAttackPanel">
+										<div class="row combatCustomPanel mb-3" id="combatConfigureTypedPanel">
 											<div class="col-md-2">
 											</div>
-											<div class="col-md-10">
-												<div class="container container-gold card">
-													&nbsp;
-												</div>
+											<div class="col-md-4">
+												<select id="ddlTypedDamage" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+													<option value="" selected>- Select Damage Type - </option>
+													<option value="1">Fire</option>
+													<option value="2">Cold</option>
+													<option value="3">Physical</option>
+													<option value="4">Electrical</option>
+													<option value="5">Emotional</option>
+													<option value="6">Intellectual</option>
+												</select>
 											</div>
-										</div>
-										<div class="row combatCustomPanel mb-3" id="combatCreateSheildPanel">
-											<div class="col-md-2">
+											<div class="col-md-3">
+												<select id="ddlTypedLevel" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+													<option value="" selected>- Select Level - </option>
+													<option value="1">Level 1</option>
+													<option value="2">Level 2</option>
+													<option value="3">Level 3</option>
+													<option value="4">Level 4</option>
+													<option value="5">Level 5</option>
+													<option value="6">Level 6</option>
+													<option value="7">Level 7</option>
+													<option value="8">Level 8</option>
+												</select>
 											</div>
-											<div class="col-md-10">
-												<div class="container container-gold card">
-													&nbsp;
-												</div>
-											</div>
-										</div>
-										<div class="row combatCustomPanel mb-3" id="combatCalmDownPanel">
-											<div class="col-md-2">
-											</div>
-											<div class="col-md-10">
-												<div class="container container-gold card">
-													&nbsp;
-												</div>
-											</div>
-										</div>
-										<div class="row combatCustomPanel mb-3" id="combatGetEmotionalPanel">
-											<div class="col-md-2">
-											</div>
-											<div class="col-md-10">
-												<div class="container container-gold card">
-													&nbsp;
-												</div>
+											<div class="col-md-3">
+												<select id="ddlTypedStrength" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+													<option value="" selected>- Select Strength -</option>
+													<option value="1">Weak</option>
+													<option value="2">Normal</option>
+													<option value="3">Strong</option>
+													<option value="4">Epic</option>
+												</select>
 											</div>
 										</div>
 										<div class="row combatCustomPanel mb-3" id="combatAlterRealityPanel">
 											<div class="col-md-2">
 											</div>
-											<div class="col-md-10">
-												<div class="container container-gold card">
-													&nbsp;
+											<div class="col-md-5">
+												<select id="ddlEffectType" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+													<option value="" selected>- Select Effect - </option>
+													<option>Paralyze</option>
+													<option>Banish</option>
+													<option>Enrage</option>
+													<option>Demoralize</option>
+													<option>Charm</option>
+													<option>Vanish</option>
+												</select>
+											</div>
+											<div class="col-md-5">
+												<select id="ddlEffectStrength" class="form-select form-select-sm" aria-label=".form-select-sm select example">
+													<option value="" selected>- Select Strength -</option>
+													<option value="2">Normal</option>
+													<option value="3">Strong</option>
+													<option value="4">Epic</option>
+												</select>
+											</div>
+										</div>
+										<div class="row mb-3" id="combatStatusPanel">
+											<div class="container container-white card">
+												<div class="row my-1">
+													<div class="col-md-12">
+														<span class="combatEffects" id="combatEffectsPanel">(Select and configure maneuver to see effect and cost.)</span>
+													</div>
 												</div>
 											</div>
 										</div>
