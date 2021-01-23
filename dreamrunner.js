@@ -25,6 +25,9 @@ $(function () {
 	$('#ddlSpontaneousType').change( function() { ddlSpontaneousTypeChange(this) });
 	$('#ddlPracticed').change( function() { ddlPracticedChange(this) });
 	
+	$('#ddlSimpleLevel').change( function() { updateCombatEffectsPanel() });
+	$('#ddlSimpleStrength').change( function() { updateCombatEffectsPanel() });
+	
 	$('input[name="radioExecute"]').prop('checked', false);
 	$('#ddlSpontaneousType').attr('disabled', true);
 	$('#ddlPracticed').attr('disabled', true);
@@ -188,7 +191,11 @@ function radioExecuteSpontaneousClick() {
 function ddlSpontaneousTypeChange(ctrl) {
 
 	var selectedVal = $(ctrl).find(':selected').val();
-	var selectedText = $(ctrl).find(':selected').text();
+	
+	// Clear all DDLs 
+	$('#ddlSimpleStrength').val('');
+	$('#ddlSimpleLevel').val('');
+	
 
 	// Hide all combat panels.
 	$('.combatCustomPanel').hide();
@@ -243,38 +250,42 @@ function updateCombatEffectsPanel() {
 	if (radioVal == "practiced") {
 		var selected = $('#ddlPracticed').find(':selected').val();
 		if (selected != '') {
-			newText = dictPracticedManuversStatus[selected];
+			newText = dictPracticedManeuversStatus[selected];
 		}
 	}
 	else if (radioVal == "spontaneous") {
-		var chosen = $('#ddlSpontaneousType').find(':selected').val();
-		switch(chosen) {
-			case 'restore':
-				newText = "(Restores confidence. Cost is 2x higher than equivalent practiced maneuver.)";
-				break;
-			case 'attack':
-				newText = "(Does damage. Cost is 2x higher than equivalent practiced maneuver.)";
-				break;
-			case 'shield':
-				newText = "(Prevents a lot of damage of selected type, before defences are applied. Cost is 2x higher than equivalent practiced maneuver.)";
-				break;
-			case 'boostsuperego':
-				newText = "(Boosts superego, and costs/drains id. Cost is 2x higher than equivalent practiced maneuver.)"; 
-				break;
-			case 'boostid':
-				newText = "(Boosts id, and costs/drains superego. Cost is 2x higher than equivalent practiced maneuver.)"; 
-				break;
-			case 'wish':
-				newText = "(Misc. effects that target creature or player. Cost is 2x higher than equivalent practiced maneuver.)"; 
-				break;
-			default:
-				break;
-		}
+		var m = getSpontaneousManeuver();
+		newText = m.getCombatEffectsText();
 	}
 	
 	$('#combatEffectsPanel').html(newText);
 }
 
+function getSpontaneousManeuver() {
+	var m;
+	var chosen = $('#ddlSpontaneousType').find(':selected').val();
+	
+	var simpleStrength = $('#ddlSimpleStrength').find(':selected').val();
+	var simpleLevel = $('#ddlSimpleLevel').find(':selected').val();
+	
+	switch(chosen) {
+		case 'restore': m = new RestoreConfidence(simpleStrength, simpleLevel, false); break;
+		case 'attack':
+			newText = "(Does damage. Cost is 2x higher than equivalent practiced maneuver.)";
+			break;
+		case 'shield':
+			newText = "(Prevents a lot of damage of selected type, before defences are applied. Cost is 2x higher than equivalent practiced maneuver.)";
+			break;
+		case 'boostsuperego': m = new BoostSuperego(simpleStrength, simpleLevel, false); break;
+		case 'boostid': m = new BoostId(simpleStrength, simpleLevel, false); break;
+		case 'wish':
+			newText = "(Misc. effects that target creature or player. Cost is 2x higher than equivalent practiced maneuver.)"; 
+			break;
+		default:
+			break;
+	}
+	return m;
+}
 
 function performManeuver() {
 	// Determine maneuver
@@ -282,6 +293,6 @@ function performManeuver() {
 	
 	if (radioVal == "practiced") {
 		var selected = $('#ddlPracticed').find(':selected').val();
-		updateCombatText("You execute " + dictPracticedManuvers[selected] + ". The Harvester is unimpressed.");
+		updateCombatText("You execute " + dictPracticedManeuvers[selected] + ". The Harvester is unimpressed.");
 	}
 }
