@@ -1,7 +1,7 @@
 
 var encounterState = '';
-
-
+var currentEncounter;
+var page = 0;
 
 // Page initialization
 $(function () {
@@ -31,8 +31,11 @@ $(function () {
 	$('#ddlPracticed').attr('disabled', true);
 	
 	// DEBUG / PROTOTYPE CALLS
-	setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
-		"You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them. It's up to you, really.", '', '', '', '');
+	// setEncounter('', 'Dream of Freedom City', 'Sanctum of the Gentlemen', 'Encounter_Gentlemen.png', 
+		// "<p>You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them.</p><p>It's up to you, really.</p>", '', '', '', '');
+
+	currentEncounter = AndroidDreamsNodes['AD-START'];
+	displayEncounter();
 	
 	setPracticedManeuversStatusDictionary();
 })
@@ -42,55 +45,47 @@ $(function () {
 // encounterImage
 // encounterText
 
-function initEncounter (encounterObj) {
-	
-}
-
-function setEncounter (state, title, name, imageSrc, text, response1, response2, response3, response4) {
-	encounterState = state;
+function displayEncounter() {
 	
 	// Set UI to encounter mode
 	$('#encounterPanel').show();
 	$('#combatPanel').hide();
 	
-	$('#encounterPanelTitle').html(title);
-	$('#encounterPanelName').html(name);
-	$('#encounterImage').attr('src', 'img/pics/' + imageSrc);
-	$('#combatImage').attr('src', 'img/pics/' + imageSrc); // Set this for combat as well, in case we need to enter that mode.
-	$('#encounterText').html(text);
-	
-	$('.btn-combat').hide();
-	if (response1 == '') {
-		$('.btn-response').hide();
-		$('.btn-action').show();
-	}
-	else {
-		$('.btn-action').hide();
-		$('.btn-response').show();
-		
-		setResponseButton('#response1', response1);
-		
-		if (response2 == '') {
-			$('#response2').hide();
-		} else {
-			setResponseButton('#response2', response2);
-			$('#response2').show();
-		}
-		
-		if (response3 == '') {
-			$('#response3').hide();
-		} else {
-			setResponseButton('#response3', response3);
-			$('#response3').show();
-		}
+	// TO DO: Get title from Realm object
+	$('#encounterPanelTitle').html('Android Dreams'); // Taken from current realm
 
-		if (response4 == '') {
-			$('#response4').hide();
-		} else {
-			setResponseButton('#response4', response4);
-			$('#response4').show();
+	$('#encounterPanelName').html(currentEncounter._encounterName);
+	$('#encounterImage').attr('src', 'img/pics/' + currentEncounter._encounterImage);
+	$('#combatImage').attr('src', 'img/pics/' + currentEncounter._encounterImage); // Set this for combat as well, in case we need to enter that mode.
+	$('#encounterText').html(currentEncounter.getEncounterText(page));
+
+	var hideList = currentEncounter.getHideClassList();
+	var showList = currentEncounter.getShowClassList();
+
+	if (hideList != '') { $(hideList).hide(); }
+	if (showList != '') { $(showList).show(); }
+
+	var maxPage = currentEncounter.getEncounterMaxPage();
+	page > 0 ? $('#prev').show() : $('#prev').hide();
+	page < (maxPage - 1) ? $('#next').show() : $('#next').hide();
+	var showButton = (page == (maxPage - 1));
+
+	// Update choice buttons
+	var i = 1; 
+	var choices = currentEncounter.getChoiceDictionary();
+	for (var key in choices) {
+		if (choices.hasOwnProperty(key)) {
+			var o = choices[key];
+			setChoiceButton('#response' + i++, key, o.code, showButton);
 		}
 	}
+
+}
+
+function setChoiceButton(id, text, code, showButton) {
+	$(id).html(text);
+	$(id).removeClass('btn-light btn-dark btn-primary btn-info btn-success btn-warning btn-danger').addClass(code);
+	showButton ? $(id).show() : $(id).hide();
 }
 
 function enterCombat(target) {
@@ -98,31 +93,24 @@ function enterCombat(target) {
 	$('#encounterPanel').hide();
 	$('#combatPanel').show();
 
-	$('.btn-action').hide();
-	$('.btn-response').hide();
+	$('.btn-page,.btn-response').hide();
 	$('.btn-combat').show();
 	$('#execute').attr('disabled', true);
 }
 
 function setResponseButton(id, code) {
-
 	var v = code.split(':');
 	$(id).html(v[1]);
 	$(id).removeClass('btn-light btn-dark btn-primary btn-info btn-success btn-warning btn-danger').addClass(v[0]);
 }
 
 function handleClick(id) {
+	$('#' + id).blur(); 
+	
 	switch(id) {
-		// Encounter Buttons
-		case 'converse':
-			setEncounter('converse', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
-				'The wizard leader says stuff. How do you react?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
-			break;
-		case 'attack':
-			setEncounter('combat', 'Dream of Freedom City', 'Fighting a Harvester', 'Combat_01.png', 
-				'Attacking the wizard was not a wise decision. He summons a viscious-looking spectral creature known as a Harvester. It appears intent on swallowing your soul.', 'btn-danger:Fight!', '', '', '');
-			break;
-			
+		// Narrative Page Buttons
+		case "prev": page--; displayEncounter(); break;
+		case "next": page++; displayEncounter(); break;
 		// Combat Buttons
 		case 'flee':
 			setEncounter('converse', 'Dream of Freedom City', 'Outside the Sanctum', 'Encounter_Hedonists.png', 
@@ -138,26 +126,11 @@ function handleClick(id) {
 			performManeuver();
 			break;
 			// Response Buttons
-		case 'response1': // happy
-			switch(encounterState) {
-				case 'converse':
-					setEncounter('start', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
-						'The wizard seems pleased as well. How do you react to his reaction?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
-					break;
-				case 'combat':
-					enterCombat('Harvester');
-					break;
-			}
-			break;
-		case 'response2': // Sad
-			setEncounter('converse', 'Dream of Freedom City', 'Sanctum of the Gentlemen (In Conversation)', 'Encounter_Gentlemen.png', 
-				'The wizard seems sad as well. How do you react to his reaction?', 'btn-success:Happy', 'btn-warning:Sad', 'btn-danger:Angry', '');
-			break;
-		case 'response3': // Angry
-			setEncounter('converse', 'Dream of Freedom City', 'Outside the Sanctum', 'Encounter_Hedonists.png', 
-				'The wizard beats you up. You find yourself outside on the sidewalk, being approached by some crazy-looking partiers.', '', '', '', '');
-			break;
+		case 'response1':
+		case 'response2':
+		case 'response3':
 		case 'response4':
+			handleResponseClick(id);
 			break;
 		// No button handler defined
 		default:
@@ -165,6 +138,16 @@ function handleClick(id) {
 				"You have been waylaid by a group of fierce-looking yuppie wizards. You should <b>converse</b> with them, or <b>attack</b> them. It's up to you, really. Seriously. Click either the 'Converse' or 'Attack' button, just below this text.", '', '', '', '');
 		break;
 	}
+}
+
+function handleResponseClick(id) {
+	var key = $('#' + id).html();
+	var choices = currentEncounter.getChoiceDictionary();
+	var node = choices[key].node;
+	console.log(node);
+	currentEncounter = AndroidDreamsNodes[node];
+	page = 0;
+	displayEncounter();
 }
 
 function updateCombatText(text) {

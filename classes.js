@@ -35,13 +35,73 @@ class Realm {
 		Random encounters are invisible, and provide a weighted list of other encounters, from which one is randomly selected.
  */
 class Encounter {
-	constructor(nodeId, encounterName, encounterText, encounterImage) {
-		
+	constructor(nodeId, encounterName, encounterImage, hideClassList, showClassList, choiceDictionary, buttonConfiguration) {
+		this._nodeId = nodeId;
+		this._encounterName = encounterName;
+		this._encounterImage = encounterImage;
+		this._hideClassList = hideClassList;
+		this._showClassList = showClassList;
+		this._choiceDictionary = choiceDictionary;
+		this._buttonConfiguration = buttonConfiguration;
+	}
+	
+	getHideClassList() { return this._hideClassList; }
+	getShowClassList() { return this._showClassList; }
+
+	setEncounterText(encounterText) {
+		this._encounterTextArray = [ encounterText ];
+	}
+
+	setEncounterTextArray(encounterTextArray) {
+		this._encounterTextArray = encounterTextArray;
+	}
+	
+	getEncounterText(zeroBasedPage) {
+		return this._encounterTextArray[zeroBasedPage];
+	}
+	
+	getEncounterMaxPage() {
+		return this._encounterTextArray.length;
+	}
+	
+	getChoiceDictionary() {
+		return this._choiceDictionary;
+	}
+	
+	getButtonConfiguration() {
+		return this._buttonConfiguration;
+	}
+}
+
+// TO DO: Combine narrative and choice to single encounter. Allow for page turning until choice is made.
+class NarrativeEncounter extends Encounter {
+	constructor(nodeId, encounterName, encounterImage, encounterTextArray, conclusionNodeId) {
+		var choiceDictionary = { 'OK' : { 'node' : conclusionNodeId, 'code' : 'btn-primary' } };
+		super(nodeId, encounterName, encounterImage, '.btn-combat,.btn-response', '.btn-page', choiceDictionary);
+		super.setEncounterTextArray(encounterTextArray);
+	}
+}
+
+class ChoiceEncounter extends Encounter {
+	constructor(nodeId, encounterName, encounterImage, encounterTextArray, choiceDictionary) {
+		super(nodeId, encounterName, encounterImage, '.btn-combat,.btn-page,.btn-response', '', choiceDictionary);
+		super.setEncounterTextArray(encounterTextArray);
 	}
 	
 	
 }
 
+class CombatEncounter extends Encounter {
+	constructor(nodeId, encounterName, encounterImage, encounterText, conclusionNodeId) {
+		super(nodeId, encounterName, encounterImage, '', '', {});
+	}
+}
+
+class RandomEncounter extends Encounter {
+	constructor(nodeId, weightedNodeDictionary) {
+		super(nodeId, '', '', '', '', {});
+	}
+}
 
 /*
 	Combat Maneuver classes
