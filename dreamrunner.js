@@ -42,6 +42,10 @@ $(function () {
 // encounterImage
 // encounterText
 
+function initEncounter (encounterObj) {
+	
+}
+
 function setEncounter (state, title, name, imageSrc, text, response1, response2, response3, response4) {
 	encounterState = state;
 	
