@@ -144,7 +144,6 @@ function handleResponseClick(id) {
 	var key = $('#' + id).html();
 	var choices = currentEncounter.getChoiceDictionary();
 	var node = choices[key].node;
-	console.log(node);
 	currentEncounter = AndroidDreamsNodes[node];
 	page = 0;
 	displayEncounter();
