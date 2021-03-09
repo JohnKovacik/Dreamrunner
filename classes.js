@@ -1,10 +1,99 @@
 /*
-	Character Class 
+	Creature Classes 
 	
 	This class defines all of the attribues and abilities of the player character. It is a persistent class, maintained in the database.
 	
  */
 
+class Creature {
+	constructor(name, confidence, ego) {
+		this._name = name;
+		this._confidence = confidence;
+		this._maxConfidence = confidence;
+		this._ego = ego;
+		
+		this._defenses = {
+			'fire' : { resist : 0, shield : 0 },
+			'cold' : { resist : 0, shield : 0 },
+			'physical' : { resist : 0, shield : 0 },
+			'electrical' : { resist : 0, shield : 0 },
+			'id' : { resist : 0, shield : 0 },
+			'superego' : { resist : 0, shield : 0 },
+		};
+	}
+	
+	setDefenses(type, resist, shield) {
+		this._defenses[type].resist = resist;
+		this._defenses[type].shield = shield;
+	}
+
+	// Updates the confidence and returns a description of the effect.
+	resolveAttack(type, damage, type2, damage2) {
+		var totalDamage = 0; 
+		
+		if (this._defenses[type].shield > 0) {
+			var d1 = Math.min(this._defenses[type].shield, damage);
+			this._defenses[type].shield -= d1;
+			damage -= d1;
+			this._confidence -= d1;
+			totalDamage += d1;
+			
+			if (this._defenses[type].shield > 0 && damage2 == 0) {
+				return "Their shield fully absorbs the attack.";
+			}
+		}
+		
+		totalDamage = damage - this._defenses[type].resist;
+		if (totalDamage > 0) {
+			this._confidence -= d2;
+		}
+		
+		if (damage2 > 0) {
+			if (this._defenses[type2].shield > 0) {
+				var d3 = Math.min(this._defenses[type2].shield, damage2);
+				this._defenses[type].shield -= d3;
+				damage -= d3;
+				this._confidence -= d3;
+				totalDamage += d3;
+				
+				if (this._defenses[type2].shield > 0) {
+					return "Their shield fully absorbs the attack.";
+				}
+			}
+			
+			totalDamage = damage2 - this._defenses[type2].resist;
+			if (totalDamage > 0) {
+				this._confidence -= d2;
+			}
+		}
+		
+		return totalDamage > 0 ? "They take " + totalDamage + " damage to their confidence." : "They manage to completely resist the attack.";
+	}
+}
+
+class Character extends Creature {
+	constructor(name, lethargy, confidence, lucidity, id, superego, ego, ephemera, experiences) {
+		super(name, confidence, ego); 
+
+		this._lucidity = lucidity;
+		this._lethargy = lethargy;
+		this._id = id;
+		this._superego = superego;
+		this._ephemera = ephemera;
+		this._experiences = experiences;
+
+		this._maxLethargy = 100;
+		this._maxLucidity = this._ego * 100;
+		this._maxId = 100 + (this._ego * 10);
+		this._maxSuperego = 100 + (this._ego * 10);
+	}
+}
+
+class Enemy extends Creature {
+	constructor(name, confidence, ego, experiences, ephemera) {
+		super(name, confidence, ego); 
+	}
+}
 /*
 	Realm classes
 	
@@ -35,14 +124,14 @@ class Realm {
 		Random encounters are invisible, and provide a weighted list of other encounters, from which one is randomly selected.
  */
 class Encounter {
-	constructor(nodeId, encounterName, encounterImage, hideClassList, showClassList, choiceDictionary, buttonConfiguration) {
+	constructor(nodeId, encounterName, encounterImage, hideClassList, showClassList, choiceDictionary, panelType) {
 		this._nodeId = nodeId;
 		this._encounterName = encounterName;
 		this._encounterImage = encounterImage;
 		this._hideClassList = hideClassList;
 		this._showClassList = showClassList;
 		this._choiceDictionary = choiceDictionary;
-		this._buttonConfiguration = buttonConfiguration;
+		this._panelType = panelType;
 	}
 	
 	getHideClassList() { return this._hideClassList; }
@@ -68,8 +157,8 @@ class Encounter {
 		return this._choiceDictionary;
 	}
 	
-	getButtonConfiguration() {
-		return this._buttonConfiguration;
+	getPanelType() {
+		return this._panelType;
 	}
 }
 
@@ -77,23 +166,23 @@ class Encounter {
 class NarrativeEncounter extends Encounter {
 	constructor(nodeId, encounterName, encounterImage, encounterTextArray, conclusionNodeId) {
 		var choiceDictionary = { 'OK' : { 'node' : conclusionNodeId, 'code' : 'btn-primary' } };
-		super(nodeId, encounterName, encounterImage, '.btn-combat,.btn-response', '.btn-page', choiceDictionary);
+		super(nodeId, encounterName, encounterImage, '.btn-combat,.btn-response', '.btn-page', choiceDictionary, "narration");
 		super.setEncounterTextArray(encounterTextArray);
 	}
 }
 
 class ChoiceEncounter extends Encounter {
 	constructor(nodeId, encounterName, encounterImage, encounterTextArray, choiceDictionary) {
-		super(nodeId, encounterName, encounterImage, '.btn-combat,.btn-page,.btn-response', '', choiceDictionary);
+		super(nodeId, encounterName, encounterImage, '.btn-combat,.btn-page,.btn-response', '', choiceDictionary, "narration");
 		super.setEncounterTextArray(encounterTextArray);
 	}
-	
-	
 }
 
 class CombatEncounter extends Encounter {
-	constructor(nodeId, encounterName, encounterImage, encounterText, conclusionNodeId) {
-		super(nodeId, encounterName, encounterImage, '', '', {});
+	constructor(nodeId, encounterName, encounterImage, encounterTextArray, conclusionNodeId) {
+		var choiceDictionary = { 'OK' : { 'node' : conclusionNodeId, 'code' : 'btn-primary' } };
+		super(nodeId, encounterName, encounterImage, '.btn-page,.btn-response', '.btn-combat', {}, "combat");
+		super.setEncounterTextArray(encounterTextArray);
 	}
 }
 
@@ -139,7 +228,8 @@ class Maneuver {
 				(this._dice > 0 ? this._dice + "d" + this._dieType + " " : "") + 
 				(this._bonus > 0 ? (this._dice > 0 ? "+ " : "" ) + this._bonus + " " : "") + 
 				(this._dieType > 0 ? "(<i>Est. " + averageResult + "</i>) "  : "") + this._effectType + " " + this._actionType);
-		return text;
+		var sample = "<br/><b>Sample Roll:</b> " + DreamrunnerCombat.rollDice(this._dice, this._dieType, this._bonus);
+		return text + sample;
 	}
 }
 

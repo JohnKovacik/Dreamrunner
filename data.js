@@ -31,8 +31,13 @@ var AndroidDreamsNodes = {
 	'AD-START' : new ChoiceEncounter('AD-START', 'In The Arena', 'Placeholder.png', 
 		["<p>The gate opens. The assembled spectators buzz, hum, and clank their disapproval as you step out.</p><p>The rusted up loading bot is a crowd favorite. Aware of that, you take your time. Telegraphing your attacks with the beamblade, letting one of the stones flung from his catapult come within a centimeter of clipping you. A fragment from one of the projectiles you deflect does scratch your paint, and that's genuine.</p><p>In the cloud of dust raised by the barrage, you see...opportunity.</p>" ],
 		{ 'Circle' : { 'node' : 'AD-CIRCLE', 'code' : 'btn-danger' }, 
-		  'Strike' : { 'node' : 'AD-STRIKE', 'code' : 'btn-danger'  } 
+		  'Strike' : { 'node' : 'AD-STRIKE', 'code' : 'btn-danger' }, 
+		  'Fight!' : { 'node' : 'AD-FIGHT', 'code' : 'btn-danger' } 
 		}),
+
+	'AD-FIGHT' : new CombatEncounter('AD-FIGHT', 'Fighting The Loaderbot', 'Placeholder.png', 
+		["<p>You are fighting a loaderbot.</p>"], 
+		'AD-REPAIR'),
 
 // (CIRCLE)
 	'AD-CIRCLE' : new NarrativeEncounter('AD-CIRCLE', 'In The Arena', 'Placeholder.png', 

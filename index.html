@@ -15,8 +15,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
 
 	<script type="text/javascript" src="./dreamrunner.js"></script>
-	<script type="text/javascript" src="./classes.js"></script>
 	<script type="text/javascript" src="./combat.js"></script>
+	<script type="text/javascript" src="./classes.js"></script>
 	<script type="text/javascript" src="./data.js"></script>
 	<link rel="stylesheet" href="./dreamrunner.css">
 </head>
@@ -26,7 +26,7 @@
 			<div class="container container-gold card mt-3">
 				<div class="row my-2">
 					<div class="col-md-4">
-						<div class="col"><h3>Character Name</h3></div>
+						<div class="col"><h3><span id="characterName">Character Name</span></h3></div>
 					</div>
 					<div class="col-md-1">
 						<span class="charCurrentValue" id="lethargyVal">100</span>
@@ -36,22 +36,22 @@
 					<div class="col-md-1">
 						<span class="charCurrentValue" id="lucidityVal">100</span>
 						<img src="img/icons/lucidity.png" class="icon float-end me-4 mt-2" alt="Lucidity" data-toggle="tooltip" data-placement="bottom" title="LUCIDITY: Lucid dreaming takes its toll. Changing the dream realm around you requires effort, and once you run out of Lucidity, you will need to recover before you can continue to make alterations or use many of your abilities.">
-						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
+						<br /><span class="charMaxValue" id="lucidityMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
 						<span class="charCurrentValue" id="confidenceVal">100</span>
 						<img src="img/icons/confidence.png" class="icon float-end me-4 mt-2" alt="Confidence" data-toggle="tooltip" data-placement="bottom" title="CONFIDENCE: Dreamrunners must have confidence to face the dream realm. If your Confidence is lost, you retreat to your fortress to recover.">
-						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
+						<br /><span class="charMaxValue" id="confidenceMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
 						<span class="charCurrentValue" id="idVal">&nbsp;&nbsp;0</span>
 						<img src="img/icons/id.png" class="icon float-end me-4 mt-2" alt="Id" data-toggle="tooltip" data-placement="bottom" title="ID: The Id is the primitive and instinctual part of the mind that contains sexual and aggressive drives. If your Id becomes dominant, your reactions will be limited to those that the Id finds acceptable.">
-						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
+						<br /><span class="charMaxValue" id="idMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
 						<span class="charCurrentValue" id="superegoVal">&nbsp;&nbsp;0</span>
 						<img src="img/icons/superego.png" class="icon float-end me-4 mt-2" alt="Superego" data-toggle="tooltip" data-placement="bottom" title="SUPEREGO: The Superego operates as a moral conscience. If your Superego becomes dominant, your reactions will be limited to those that the Superego finds acceptable.">
-						<br /><span class="charMaxValue" id="lethargyMaxVal">100</span>
+						<br /><span class="charMaxValue" id="superegoMaxVal">100</span>
 					</div>
 					<div class="col-md-1">
 						<img src="img/icons/ego.png" class="icon" alt="Ego" data-toggle="tooltip" data-placement="bottom" title="EGO: Your Ego is your sense of self. As it increases, your abilities will grow.">

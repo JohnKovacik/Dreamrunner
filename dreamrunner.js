@@ -1,10 +1,15 @@
 
 var encounterState = '';
 var currentEncounter;
+var character;
 var page = 0;
 
 // Page initialization
 $(function () {
+	// Site Initialization
+	character = new Character('Beta Tester', 100, 100, 100, 0, 0, 2, 2048, 1812);
+	updateCharacterDisplay();
+	
 	// Make sure combat panels are hidden;
 	$('#combatPanel').hide();
 	$('#combatButtons').hide();
@@ -40,24 +45,56 @@ $(function () {
 	setPracticedManeuversStatusDictionary();
 })
 
-// encounterPanelTitle
-// encounterPanelName
-// encounterImage
-// encounterText
+function updateCharacterDisplay() {
+	$('#characterName').text(character._name);
+	
+	$('#lethargyVal').html(formatCharValue(character._lethargy));
+	$('#lucidityVal').html(formatCharValue(character._confidence));
+	$('#confidenceVal').html(formatCharValue(character._confidence));
+	$('#idVal').html(formatCharValue(character._id));
+	$('#superegoVal').html(formatCharValue(character._superego));
+
+	$('#lethargyMaxVal').text(character._maxLethargy);
+	$('#lucidityMaxVal').text(character._maxLucidity);
+	$('#confidenceMaxVal').text(character._maxConfidence);
+	$('#idMaxVal').text(character._maxId);
+	$('#superegoMaxVal').text(character._maxSuperego);
+
+	$('#egoVal').text(character._ego);
+	$('#experiencesVal').text(character._experiences);
+	$('#ephemeraVal').text(character._ephemera);
+}
+
+function formatCharValue(rawValue) {
+	return (rawValue < 100 ? "&nbsp;" : "") + (rawValue < 10 ? "&nbsp;" : "") + rawValue;
+}
 
 function displayEncounter() {
 	
-	// Set UI to encounter mode
-	$('#encounterPanel').show();
-	$('#combatPanel').hide();
-	
+	// Set UI 
 	// TO DO: Get title from Realm object
 	$('#encounterPanelTitle').html('Android Dreams'); // Taken from current realm
 
 	$('#encounterPanelName').html(currentEncounter._encounterName);
-	$('#encounterImage').attr('src', 'img/pics/' + currentEncounter._encounterImage);
-	$('#combatImage').attr('src', 'img/pics/' + currentEncounter._encounterImage); // Set this for combat as well, in case we need to enter that mode.
-	$('#encounterText').html(currentEncounter.getEncounterText(page));
+
+	console.log(currentEncounter.getPanelType());
+	switch (currentEncounter.getPanelType()) {
+		case 'narration': 
+			$('#encounterPanel').show(); 
+			$('#combatPanel').hide(); 
+			$('#encounterImage').attr('src', 'img/pics/' + currentEncounter._encounterImage);
+			$('#encounterText').html(currentEncounter.getEncounterText(page));
+			break;
+		case 'combat': 
+			$('#encounterPanel').hide(); 
+			$('#combatPanel').show(); 
+			$('#execute').attr('disabled', true); 
+			$('#combatImage').attr('src', 'img/pics/' + currentEncounter._encounterImage); 
+			updateCombatText(currentEncounter.getEncounterText(page));
+			break;
+	}
+	
+
 
 	var hideList = currentEncounter.getHideClassList();
 	var showList = currentEncounter.getShowClassList();
@@ -86,22 +123,6 @@ function setChoiceButton(id, text, code, showButton) {
 	$(id).html(text);
 	$(id).removeClass('btn-light btn-dark btn-primary btn-info btn-success btn-warning btn-danger').addClass(code);
 	showButton ? $(id).show() : $(id).hide();
-}
-
-function enterCombat(target) {
-	// Set UI to combat mode
-	$('#encounterPanel').hide();
-	$('#combatPanel').show();
-
-	$('.btn-page,.btn-response').hide();
-	$('.btn-combat').show();
-	$('#execute').attr('disabled', true);
-}
-
-function setResponseButton(id, code) {
-	var v = code.split(':');
-	$(id).html(v[1]);
-	$(id).removeClass('btn-light btn-dark btn-primary btn-info btn-success btn-warning btn-danger').addClass(v[0]);
 }
 
 function handleClick(id) {
